@@ -296,14 +296,23 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const npc=()=>NPCS[st.npc]||NPCS.emily;
 function level(){let l=LEVELS[0],n=null;for(let i=0;i<LEVELS.length;i++){if(st.xp>=LEVELS[i][0]){l=LEVELS[i];n=LEVELS[i+1]}}return{t:l[1],cur:l[0],next:n?n[0]:null}}
 
+// 카톡 안에서 열면 외부 브라우저로 자동 전환 (카톡 내장 브라우저는 소리가 안 나는 경우가 많음)
+(function(){const ua=navigator.userAgent||'';if(/KAKAOTALK/i.test(ua)&&!sessionStorageSafe()){location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(location.href)}
+ function sessionStorageSafe(){try{if(sessionStorage.getItem('kx'))return true;sessionStorage.setItem('kx','1')}catch(e){}return false}})();
+const HAS_TTS=!!(window.speechSynthesis&&window.SpeechSynthesisUtterance);
+const IN_APP=/KAKAOTALK|NAVER|Instagram|FBAN|FBAV|Line\//i.test(navigator.userAgent||'');
+// iOS/안드로이드는 첫 터치 때 음성을 '깨워야' 소리가 남
+let unlocked=false;
+function unlock(){if(unlocked||!HAS_TTS)return;unlocked=true;try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);try{speechSynthesis.resume()}catch(e){}}catch(e){}}
+document.addEventListener('touchstart',unlock,{once:true,passive:true});document.addEventListener('click',unlock,{once:true});
 // 음성 (TTS)
 let voice=null;
 function pickVoice(){const vs=speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang));
  voice=vs.find(v=>/en[-_]US/i.test(v.lang)&&/Samantha|Google|Natural|Aria|Jenny/i.test(v.name))||vs.find(v=>/en[-_]US/i.test(v.lang))||vs[0]||null}
 try{if(window.speechSynthesis){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}}catch(e){}
-function say(text,opt={}){if(opt.end){const f=opt.end;let done=false;opt.end=()=>{if(!done){done=true;f()}};setTimeout(opt.end,text.length*90+1800)}
+function say(text,opt={}){if(!unlocked)unlock();if(opt.end){const f=opt.end;let done=false;opt.end=()=>{if(!done){done=true;f()}};setTimeout(opt.end,text.length*90+1800)}
  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;
- u.rate=opt.rate||st.rate;u.pitch=opt.pitch!=null?opt.pitch:npc().pitch;if(opt.end)u.onend=opt.end;speechSynthesis.speak(u)}catch(e){}}
+ u.rate=opt.rate||st.rate;u.pitch=opt.pitch!=null?opt.pitch:npc().pitch;if(opt.end)u.onend=opt.end;speechSynthesis.speak(u);try{speechSynthesis.resume()}catch(e){}}catch(e){}}
 function npcSay(line,el){if(el){el.innerHTML=`<div class="en">${esc(line[0])}</div><div class="ko">${esc(line[1])}</div>`;el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop')}say(line[0],{rate:Math.min(1,st.rate+0.1)})}
 function confetti(){const em=['🎉','⭐','✨','🌸','✈️','💖'];for(let i=0;i<24;i++){const d=document.createElement('div');d.className='confetti';d.textContent=rnd(em);d.style.left=Math.random()*100+'vw';d.style.animationDelay=Math.random()*0.8+'s';document.body.appendChild(d);setTimeout(()=>d.remove(),3600)}}
 function npcBox(line,id='nb'){const n=npc();return `<div class="npc"><div class="ava">${n.ava}</div><div class="bubble pop" id="${id}"><div class="en">${esc(line[0])}</div><div class="ko">${esc(line[1])}</div></div></div>`}
@@ -340,6 +349,7 @@ function home(){
  const pct=lv.next?Math.round((st.xp-lv.cur)/(lv.next-lv.cur)*100):100;
  app.innerHTML=`
  <h1>엄마의 여행 영어 ✈️</h1>
+ ${(!HAS_TTS||IN_APP)?`<div class="fb bad" style="font-weight:400">🔇 <b>이 화면에선 소리가 안 날 수 있어요.</b><br>오른쪽 아래(또는 위) <b>⋯ → 다른 브라우저로 열기</b>를 눌러 Safari·크롬으로 열어 주세요.</div>`:''}
  ${npcBox(greet)}
  <div class="stats">
   <div class="stat"><b>🔥 ${streakAlive?st.streak:0}</b><span>연속 출석</span></div>
@@ -354,10 +364,11 @@ function home(){
  <button class="btn blue" id="rp">🎭 상황극 대화하기<br><span style="font-size:16px;font-weight:400">${n.name}와(과) 실전처럼 대화</span></button>
  <div class="card" id="tip" style="cursor:pointer"><span class="tag">오늘의 한마디 🔊</span>
   <div class="big-en" style="font-size:22px">${esc(tip.en)}</div><div class="ko">${esc(tip.ko)}</div><div class="pron">${esc(tip.pr)}</div></div>
- <div class="row"><button class="btn sec" id="pg">📒 진도·도장</button><button class="btn sec" id="set">⚙️ 설정</button></div>`;
+ <div class="row"><button class="btn sec" id="pg">📒 진도·도장</button><button class="btn sec" id="set">⚙️ 설정</button></div>
+ <button class="btn sec" id="snd" style="font-size:18px">🔈 소리가 안 나요?</button>`;
  bindNpcBubble();
  $('#go').onclick=startSession;$('#rp').onclick=roleList;$('#pg').onclick=progress;$('#set').onclick=settings;
- $('#tip').onclick=()=>say(tip.en);
+ $('#tip').onclick=()=>say(tip.en);$('#snd').onclick=soundHelp;
 }
 
 // ===================== 오늘의 연습 =====================
@@ -567,6 +578,25 @@ function progress(){const t=today();
   l.innerHTML=S[el.dataset.c].map((s,i)=>{const b=cardBox(el.dataset.c+i),seen=!!st.cards[el.dataset.c+i];
    return `<div class="list-item"><button class="mini" data-s="${esc(s[0])}">🔊</button><div class="t"><b>${esc(s[0])}</b><div class="hint">${esc(s[1])}</div></div><span>${seen?'⭐'.repeat(Math.min(b,4))||'🌱':'🔒'}</span></div>`}).join('');
   l.querySelectorAll('.mini').forEach(m=>m.onclick=ev=>{ev.stopPropagation();say(m.dataset.s,{pitch:1})})});
+}
+
+// ===================== 소리 도움말 =====================
+function soundHelp(){
+ app.innerHTML=`<div class="top"><button class="x" id="bk">←</button><h2 style="margin:0">🔈 소리 점검</h2></div>
+ <button class="btn blue" id="t1">🔊 소리 시험하기</button>
+ <div id="tr"></div>
+ <div class="card"><b>소리가 안 나면 차례대로 확인해 주세요</b>
+ <ol style="padding-left:22px;margin:8px 0">
+ <li><b>아이폰 무음 모드 끄기</b><br><span class="hint">옆면 무음 스위치(또는 액션 버튼)를 꺼 주세요. 무음이면 소리가 안 나요.</span></li>
+ <li><b>볼륨 올리기</b><br><span class="hint">옆면 볼륨 버튼(+)을 여러 번 눌러 주세요.</span></li>
+ <li><b>카톡 안에서 열었다면</b><br><span class="hint">⋯ → <b>다른 브라우저로 열기</b>로 Safari·크롬에서 열어 주세요.</span></li>
+ <li><b>화면을 한 번 눌러 주세요</b><br><span class="hint">휴대폰은 화면을 한 번 누른 뒤부터 소리가 나요.</span></li>
+ <li><b>그래도 안 되면 (안드로이드)</b><br><span class="hint">설정 → '텍스트 음성 변환(TTS)' → Google 음성 엔진 설치·영어 음성 다운로드</span></li>
+ </ol></div>
+ <div class="card hint">이 브라우저 음성 기능: ${HAS_TTS?'✅ 있음':'❌ 없음 (다른 브라우저로 열어 주세요)'} · 영어 목소리: ${voice?esc(voice.name):'기본'}</div>`;
+ $('#bk').onclick=home;
+ $('#t1').onclick=()=>{unlock();say('Hello! Can you hear me?',{pitch:1});$('#tr').innerHTML=`<div class="card center">들리셨나요?<div class="row" style="margin-top:8px"><button class="btn ok" id="ye">👍 들려요</button><button class="btn sec" id="no">👎 안 들려요</button></div></div>`;
+  $('#ye').onclick=home;$('#no').onclick=()=>{$('#tr').innerHTML='<div class="fb bad">아래 순서대로 하나씩 확인해 주세요 👇 (특히 1번 무음 모드!)</div>'}};
 }
 
 // ===================== 설정 =====================
