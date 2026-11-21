@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="여행영어">
+<meta name="theme-color" content="#ff7a45">
+<title>엄마의 여행 영어</title>
+<style>
+:root{--bg:#fff8ef;--card:#fff;--ink:#2b2b2b;--sub:#777;--pri:#ff7a45;--pri2:#ffb37a;--ok:#2fb36b;--bad:#e5484d;--line:#f0e2d0;--blue:#3d7bfd}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-size:20px;line-height:1.5}
+#app{max-width:520px;margin:0 auto;padding:16px 16px 40px;min-height:100vh}
+h1{font-size:26px;margin:4px 0 12px}
+h2{font-size:22px;margin:8px 0 10px}
+.card{background:var(--card);border-radius:20px;padding:18px;margin:12px 0;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--line)}
+.btn{display:block;width:100%;border:none;border-radius:16px;padding:16px;font-size:21px;font-weight:700;margin:10px 0;cursor:pointer;background:var(--pri);color:#fff;font-family:inherit}
+.btn.sec{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.blue{background:var(--blue)}
+.btn.ok{background:var(--ok)}
+.btn.small{display:inline-block;width:auto;padding:10px 16px;font-size:18px;margin:4px}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.45}
+.row{display:flex;gap:10px}
+.row>*{flex:1}
+.stats{display:flex;gap:8px;text-align:center}
+.stat{flex:1;background:#fff;border-radius:16px;padding:10px 4px;border:1px solid var(--line)}
+.stat b{display:block;font-size:24px}
+.stat span{font-size:15px;color:var(--sub)}
+.npc{display:flex;gap:12px;align-items:flex-start;margin:6px 0}
+.ava{font-size:46px;line-height:1;flex:none;width:60px;height:60px;border-radius:50%;background:#ffe9d6;display:flex;align-items:center;justify-content:center}
+.bubble{background:#fff;border:2px solid var(--line);border-radius:18px;border-top-left-radius:4px;padding:10px 14px;flex:1;cursor:pointer}
+.bubble .en{font-weight:700}
+.bubble .ko{color:var(--sub);font-size:17px}
+.big-en{font-size:28px;font-weight:800;line-height:1.3;margin:6px 0}
+.ko{color:#555}
+.pron{color:var(--pri);font-size:17px}
+.tag{display:inline-block;background:#ffe9d6;color:#c2541c;border-radius:10px;padding:2px 10px;font-size:15px;font-weight:700}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:16px;padding:14px 16px;font-size:20px;margin:8px 0;cursor:pointer;font-family:inherit;color:var(--ink)}
+.opt small{display:block;color:var(--sub);font-size:16px}
+.opt.right{border-color:var(--ok);background:#e9f9ef}
+.opt.wrong{border-color:var(--bad);background:#fdecec;animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.play{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:50px;background:var(--blue);color:#fff;font-size:20px;font-weight:700;padding:12px 20px;margin:6px 4px 6px 0;cursor:pointer;font-family:inherit}
+.play.slow{background:#7b8cff}
+.prog{height:12px;background:#f1e4d4;border-radius:10px;overflow:hidden;margin:8px 0}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--pri),var(--pri2));border-radius:10px;transition:width .3s}
+.top{display:flex;align-items:center;gap:10px}
+.top .x{background:none;border:none;font-size:28px;cursor:pointer;color:var(--sub)}
+.center{text-align:center}
+.fb{border-radius:16px;padding:12px 14px;margin:10px 0;font-weight:700}
+.fb.ok{background:#e9f9ef;color:#17804a}
+.fb.bad{background:#fdecec;color:#b42318}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cat{background:#fff;border:2px solid var(--line);border-radius:18px;padding:14px 8px;text-align:center;cursor:pointer;font-size:18px;font-family:inherit;color:var(--ink)}
+.cat .e{font-size:34px;display:block}
+.cat.done{border-color:var(--ok)}
+.chat{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.me{align-self:flex-end;background:var(--pri);color:#fff;border-radius:18px;border-top-right-radius:4px;padding:10px 14px;max-width:85%;font-weight:700}
+.stamps{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.stamps div{aspect-ratio:1;border-radius:12px;background:#f6ece0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#aaa;flex-direction:column}
+.stamps div.on{background:#ffe1cc;color:#c2541c;font-size:22px}
+.stamps div.today{outline:2px solid var(--pri)}
+.npcpick{display:flex;gap:12px;align-items:center;border:2px solid var(--line);border-radius:18px;padding:12px;margin:8px 0;cursor:pointer;background:#fff}
+.npcpick.sel{border-color:var(--pri);background:#fff3ea}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;border:2px solid var(--line);background:#fff;border-radius:14px;padding:10px 4px;font-size:17px;cursor:pointer;font-family:inherit}
+.seg button.sel{border-color:var(--pri);background:#fff3ea;font-weight:700}
+.list-item{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
+.list-item .t{flex:1}
+.mini{border:none;background:#eef2ff;border-radius:50%;width:44px;height:44px;font-size:20px;cursor:pointer;flex:none}
+.confetti{position:fixed;top:-40px;font-size:30px;animation:fall 2.6s linear forwards;pointer-events:none;z-index:9}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+.blank{display:inline-block;min-width:80px;border-bottom:3px solid var(--pri);color:var(--pri)}
+.pop{animation:pop .4s}
+@keyframes pop{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+.hint{font-size:16px;color:var(--sub)}
+.badge{display:inline-block;margin:4px;padding:6px 12px;border-radius:14px;background:#fff3c4;font-size:16px}
+.badge.off{background:#eee;color:#bbb}
+</style>
+</head>
+<body>
+<div id="app"><div class="card" style="margin-top:40px;text-align:center">
+<div style="font-size:60px">✈️</div><h2>엄마의 여행 영어</h2>
+<p>이 화면이 계속 보이면<br>미리보기 창이라 실행이 안 되는 거예요.</p>
+<p><b>'열기' → Safari(또는 크롬)</b>로<br>열어 주세요.</p></div></div>
+<script>
+// ===================== 데이터 =====================
+const CATS=[
+{id:'air',e:'✈️',n:'공항',role:'체크인 직원'},
+{id:'fly',e:'🛫',n:'비행기 안',role:'승무원'},
+{id:'imm',e:'🛂',n:'입국심사',role:'입국심사관'},
+{id:'go',e:'🚕',n:'교통·길',role:'택시 기사'},
+{id:'htl',e:'🏨',n:'호텔',role:'호텔 직원'},
+{id:'eat',e:'🍽️',n:'식당',role:'웨이터'},
+{id:'cafe',e:'☕',n:'카페',role:'바리스타'},
+{id:'shop',e:'🛍️',n:'쇼핑',role:'점원'},
+{id:'tour',e:'📸',n:'관광',role:'매표소 직원'},
+{id:'sos',e:'🏥',n:'병원·약국',role:'약사'}];
+
+// [영어, 한국어, 발음힌트, 상황설명]
+const S={
+air:[
+["I'd like a window seat, please.","창가 자리로 주세요.","아이드 라잌 어 윈도우 씻, 플리즈","체크인할 때 자리 고르기"],
+["Can I check this bag?","이 가방 부칠 수 있나요?","캔 아이 첵 디스 백?","짐을 부치고 싶을 때"],
+["Where is gate twelve?","12번 게이트가 어디예요?","웨어 이즈 게잇 트웰브?","탑승구를 찾을 때"],
+["What time does boarding start?","탑승은 몇 시에 시작해요?","왓 타임 더즈 보딩 스타트?","탑승 시간 물어보기"],
+["Is this flight on time?","이 비행기 제시간에 출발하나요?","이즈 디스 플라잇 온 타임?","지연 여부 확인"],
+["I have one bag to check.","부칠 가방이 하나 있어요.","아이 해브 원 백 투 첵","부칠 짐 개수 말하기"],
+["Can I bring this on the plane?","이거 기내에 가지고 타도 되나요?","캔 아이 브링 디스 온 더 플레인?","기내 반입 물어보기"],
+["Here is my passport.","여기 제 여권이요.","히어 이즈 마이 패스포트","여권을 건넬 때"],
+["Where can I get a cart?","카트는 어디서 가져와요?","웨어 캔 아이 겟 어 카트?","짐 카트 찾기"],
+["My flight was canceled.","제 비행기가 취소됐어요.","마이 플라잇 워즈 캔슬드","결항됐을 때"]],
+fly:[
+["Could I have some water, please?","물 좀 주시겠어요?","쿠드 아이 해브 썸 워터, 플리즈?","목마를 때"],
+["Chicken, please.","치킨으로 주세요.","치킨, 플리즈","기내식 고르기"],
+["Can I have a blanket?","담요 하나 주시겠어요?","캔 아이 해브 어 블랭킷?","추울 때"],
+["Excuse me, can I get by?","실례합니다, 좀 지나갈게요.","익스큐즈 미, 캔 아이 겟 바이?","옆 사람 앞을 지나갈 때"],
+["Where is the restroom?","화장실이 어디예요?","웨어 이즈 더 레스트룸?","화장실 찾기"],
+["Could you help me with my bag?","가방 올리는 것 좀 도와주시겠어요?","쿠쥬 헬프 미 위드 마이 백?","짐 올릴 때 도움 요청"],
+["I don't feel well.","몸이 좀 안 좋아요.","아이 돈ㅌ 필 웰","컨디션이 나쁠 때"],
+["Can I have another one?","하나 더 주실 수 있나요?","캔 아이 해브 어나더 원?","하나 더 받고 싶을 때"],
+["What time do we land?","몇 시에 도착해요?","왓 타임 두 위 랜드?","도착 시간 물어보기"],
+["Can I change seats?","자리 바꿔도 될까요?","캔 아이 체인지 씻츠?","자리 이동하고 싶을 때"]],
+imm:[
+["I'm here for sightseeing.","관광하러 왔어요.","아임 히어 포 싸잇씽","방문 목적 말하기"],
+["I'm staying for one week.","일주일 머물러요.","아임 스테잉 포 원 윅","체류 기간 말하기"],
+["I'm staying at the Hilton Hotel.","힐튼 호텔에 묵어요.","아임 스테잉 앳 더 힐튼 호텔","숙소 말하기"],
+["I'm traveling with my family.","가족과 함께 여행 중이에요.","아임 트래블링 위드 마이 패밀리","동행 말하기"],
+["This is my first visit.","처음 방문이에요.","디스 이즈 마이 퍼스트 비짓","처음 왔을 때"],
+["Where is the baggage claim?","짐 찾는 곳이 어디예요?","웨어 이즈 더 배기쥐 클레임?","짐 찾으러 갈 때"],
+["My bag didn't come out.","제 가방이 안 나왔어요.","마이 백 디든ㅌ 컴 아웃","짐이 안 나왔을 때"],
+["I have nothing to declare.","신고할 물건 없어요.","아이 해브 낫띵 투 디클레어","세관 통과할 때"],
+["Where can I exchange money?","환전은 어디서 하나요?","웨어 캔 아이 익스체인지 머니?","환전하고 싶을 때"],
+["Sorry, could you say that again?","죄송한데 다시 말씀해 주시겠어요?","쏘리, 쿠쥬 쎄이 댓 어게인?","잘 못 알아들었을 때 (만능 문장!)"]],
+go:[
+["How do I get to this hotel?","이 호텔에 어떻게 가나요?","하우 두 아이 겟 투 디스 호텔?","길 물어보기"],
+["Please take me to this address.","이 주소로 가 주세요.","플리즈 테잌 미 투 디스 어드레스","택시에서 주소 보여주며"],
+["How much is it to downtown?","시내까지 얼마예요?","하우 머치 이즈 잇 투 다운타운?","요금 물어보기"],
+["Where is the nearest subway station?","가장 가까운 지하철역이 어디예요?","웨어 이즈 더 니어리스트 썹웨이 스테이션?","지하철 찾기"],
+["Is it far from here?","여기서 멀어요?","이즈 잇 파 프롬 히어?","거리 물어보기"],
+["Can I walk there?","걸어갈 수 있나요?","캔 아이 웍 데어?","걸어갈 만한지"],
+["One ticket to the airport, please.","공항 가는 표 한 장 주세요.","원 티킷 투 디 에어포트, 플리즈","표 살 때"],
+["Does this bus go downtown?","이 버스 시내 가나요?","더즈 디스 버스 고 다운타운?","버스 확인"],
+["Please stop here.","여기서 세워 주세요.","플리즈 스탑 히어","택시에서 내릴 때"],
+["I'm lost. Can you help me?","길을 잃었어요. 도와주시겠어요?","아임 로스트. 캔 유 헬프 미?","길 잃었을 때"]],
+htl:[
+["I have a reservation.","예약했어요.","아이 해브 어 레저베이션","체크인할 때"],
+["The reservation is under Kim.","김 이름으로 예약했어요.","더 레저베이션 이즈 언더 킴","예약자 이름 말하기"],
+["What time is checkout?","체크아웃은 몇 시예요?","왓 타임 이즈 체크아웃?","퇴실 시간 물어보기"],
+["Is breakfast included?","조식 포함인가요?","이즈 브렉퍼스트 인클루디드?","아침 식사 확인"],
+["What is the Wi-Fi password?","와이파이 비밀번호가 뭐예요?","왓 이즈 더 와이파이 패스워드?","인터넷 연결"],
+["Can I leave my bags here?","짐을 여기 맡겨도 되나요?","캔 아이 리브 마이 백스 히어?","짐 맡기기"],
+["The air conditioner doesn't work.","에어컨이 안 돼요.","디 에어컨디셔너 더즌ㅌ 웍","고장 신고"],
+["Could I have more towels?","수건 좀 더 주시겠어요?","쿠드 아이 해브 모어 타월스?","수건 요청"],
+["I left my key in the room.","방에 열쇠를 두고 나왔어요.","아이 레프트 마이 키 인 더 룸","열쇠를 두고 나왔을 때"],
+["Can you call a taxi for me?","택시 좀 불러 주시겠어요?","캔 유 콜 어 택시 포 미?","택시 부탁"]],
+eat:[
+["A table for two, please.","두 명 자리 주세요.","어 테이블 포 투, 플리즈","식당 들어갈 때"],
+["Can I see the menu?","메뉴 좀 볼 수 있을까요?","캔 아이 씨 더 메뉴?","메뉴 요청"],
+["What do you recommend?","뭘 추천하세요?","왓 두 유 레커멘드?","추천 받기"],
+["I'll have this one.","이걸로 할게요.","아일 해브 디스 원","메뉴 가리키며 주문"],
+["Not too spicy, please.","너무 맵지 않게 해 주세요.","낫 투 스파이시, 플리즈","맵기 조절"],
+["Can I get this without onions?","양파 빼고 주실 수 있나요?","캔 아이 겟 디스 위다웃 어니언스?","재료 빼기"],
+["It's delicious!","정말 맛있어요!","잇츠 딜리셔스!","맛 칭찬"],
+["Can I have the check, please?","계산서 주세요.","캔 아이 해브 더 첵, 플리즈?","계산할 때"],
+["Can I pay by card?","카드로 계산할 수 있나요?","캔 아이 페이 바이 카드?","카드 결제"],
+["Can I take this to go?","이거 포장해 갈 수 있나요?","캔 아이 테잌 디스 투 고?","남은 음식 포장"]],
+cafe:[
+["One hot americano, please.","따뜻한 아메리카노 한 잔 주세요.","원 핫 아메리카노, 플리즈","커피 주문"],
+["Can I get an iced latte?","아이스 라테 주시겠어요?","캔 아이 겟 언 아이스드 라테이?","차가운 음료 주문"],
+["A small size, please.","작은 사이즈로 주세요.","어 스몰 싸이즈, 플리즈","사이즈 고르기"],
+["For here, please.","여기서 마실게요.","포 히어, 플리즈","매장에서 마실 때"],
+["To go, please.","가져갈게요.","투 고, 플리즈","테이크아웃"],
+["Less sugar, please.","설탕은 적게 넣어 주세요.","레스 슈거, 플리즈","단맛 줄이기"],
+["Do you have decaf?","디카페인 있나요?","두 유 해브 디캐프?","카페인 없는 커피"],
+["Is there a restroom here?","여기 화장실 있나요?","이즈 데어 어 레스트룸 히어?","화장실 확인"],
+["Can I sit here?","여기 앉아도 될까요?","캔 아이 씻 히어?","자리 물어보기"],
+["How much is this cake?","이 케이크 얼마예요?","하우 머치 이즈 디스 케잌?","가격 물어보기"]],
+shop:[
+["I'm just looking, thank you.","그냥 구경하는 거예요, 고마워요.","아임 저스트 루킹, 땡큐","점원이 말 걸 때"],
+["How much is this?","이거 얼마예요?","하우 머치 이즈 디스?","가격 물어보기"],
+["Do you have this in a bigger size?","이거 더 큰 사이즈 있나요?","두 유 해브 디스 인 어 비거 싸이즈?","사이즈 찾기"],
+["Can I try this on?","입어 봐도 되나요?","캔 아이 트라이 디스 온?","옷 입어보기"],
+["Do you have another color?","다른 색 있나요?","두 유 해브 어나더 컬러?","색상 찾기"],
+["It's a little expensive.","조금 비싸네요.","잇츠 어 리틀 익스펜시브","가격이 비쌀 때"],
+["Can you give me a discount?","좀 깎아 주실 수 있나요?","캔 유 기브 미 어 디스카운트?","흥정하기"],
+["I'll take it.","이걸로 살게요.","아일 테잌 잇","구매 결정"],
+["Can I get a tax refund?","세금 환급 받을 수 있나요?","캔 아이 겟 어 택스 리펀드?","택스 리펀"],
+["Can you wrap it as a gift?","선물 포장해 주실 수 있나요?","캔 유 랩 잇 애즈 어 기프트?","선물 포장"]],
+tour:[
+["Could you take a picture of us?","저희 사진 좀 찍어 주시겠어요?","쿠쥬 테잌 어 픽쳐 오브 어스?","사진 부탁"],
+["One more, please.","한 장 더 부탁해요.","원 모어, 플리즈","한 번 더 부탁"],
+["Two adult tickets, please.","어른 두 장 주세요.","투 어덜트 티킷츠, 플리즈","입장권 사기"],
+["What time does it close?","몇 시에 문 닫아요?","왓 타임 더즈 잇 클로즈?","운영 시간"],
+["Is there a discount for seniors?","경로 할인 있나요?","이즈 데어 어 디스카운트 포 씨니어스?","할인 물어보기"],
+["Can I take pictures here?","여기서 사진 찍어도 되나요?","캔 아이 테잌 픽쳐스 히어?","촬영 가능 여부"],
+["Where is the entrance?","입구가 어디예요?","웨어 이즈 디 엔트런스?","입구 찾기"],
+["Do you have a map?","지도 있나요?","두 유 해브 어 맵?","지도 받기"],
+["Is there a guided tour?","가이드 투어 있나요?","이즈 데어 어 가이디드 투어?","투어 문의"],
+["It's so beautiful!","정말 아름다워요!","잇츠 쏘 뷰티풀!","감탄할 때"]],
+sos:[
+["I need help.","도움이 필요해요.","아이 니드 헬프","도움 요청"],
+["I lost my wallet.","지갑을 잃어버렸어요.","아이 로스트 마이 월릿","분실했을 때"],
+["Please call the police.","경찰 좀 불러 주세요.","플리즈 콜 더 폴리스","긴급 상황"],
+["Where is the pharmacy?","약국이 어디예요?","웨어 이즈 더 파머씨?","약국 찾기"],
+["I have a headache.","머리가 아파요.","아이 해브 어 헤드에잌","두통"],
+["I have a stomachache.","배가 아파요.","아이 해브 어 스토먹에잌","복통"],
+["Do you have medicine for a cold?","감기약 있나요?","두 유 해브 메디슨 포 어 콜드?","감기약 사기"],
+["I need to see a doctor.","의사를 만나야 해요.","아이 니드 투 씨 어 닥터","병원 가야 할 때"],
+["I'm allergic to peanuts.","땅콩 알레르기가 있어요.","아임 얼러직 투 피넛츠","알레르기 알리기"],
+["Please speak slowly.","천천히 말해 주세요.","플리즈 스픽 슬로울리","말이 빠를 때 (만능 문장!)"]]};
+
+// 상황극: [NPC 영어, NPC 한국어, [[정답 영,한],[오답,한],[오답,한]]]
+const R={
+air:[["Hello! Where are you flying today?","안녕하세요! 오늘 어디로 가세요?",[["I'm going to Paris.","파리에 가요."],["I'm fine, thank you.","잘 지내요, 고마워요."],["It's delicious!","정말 맛있어요!"]]],
+ ["Would you like a window or an aisle seat?","창가 자리요, 복도 자리요?",[["I'd like a window seat, please.","창가 자리로 주세요."],["One more, please.","한 장 더 부탁해요."],["I'm lost.","길을 잃었어요."]]],
+ ["Any bags to check?","부칠 짐 있으세요?",[["I have one bag to check.","부칠 가방이 하나 있어요."],["Is breakfast included?","조식 포함인가요?"],["Please stop here.","여기서 세워 주세요."]]]],
+fly:[["Would you like chicken or beef?","치킨과 소고기 중 뭘로 드릴까요?",[["Chicken, please.","치킨으로 주세요."],["Can I try this on?","입어 봐도 되나요?"],["Where is the entrance?","입구가 어디예요?"]]],
+ ["Anything to drink?","음료는 뭘로 드릴까요?",[["Could I have some water, please?","물 좀 주시겠어요?"],["I have a reservation.","예약했어요."],["Two adult tickets, please.","어른 두 장 주세요."]]],
+ ["Is everything okay?","불편한 점 없으세요?",[["Can I have a blanket? I'm a little cold.","담요 주시겠어요? 좀 추워요."],["I'll take it.","이걸로 살게요."],["How much is it to downtown?","시내까지 얼마예요?"]]]],
+imm:[["What is the purpose of your visit?","방문 목적이 뭔가요?",[["I'm here for sightseeing.","관광하러 왔어요."],["A table for two, please.","두 명 자리 주세요."],["For here, please.","여기서 마실게요."]]],
+ ["How long will you stay?","얼마나 머무르실 건가요?",[["I'm staying for one week.","일주일 머물러요."],["It's a little expensive.","조금 비싸네요."],["One hot americano, please.","따뜻한 아메리카노 한 잔이요."]]],
+ ["Where are you staying?","어디서 묵으시나요?",[["I'm staying at the Hilton Hotel.","힐튼 호텔에 묵어요."],["I'm just looking, thank you.","그냥 구경 중이에요."],["Can I pay by card?","카드로 계산돼요?"]]]],
+go:[["Hi! Where to?","안녕하세요! 어디로 모실까요?",[["Please take me to this address.","이 주소로 가 주세요."],["I'm here for sightseeing.","관광하러 왔어요."],["Chicken, please.","치킨으로 주세요."]]],
+ ["It takes about twenty minutes. Is that okay?","20분쯤 걸려요. 괜찮으세요?",[["Yes, that's fine.","네, 괜찮아요."],["I have a headache.","머리가 아파요."],["Can I try this on?","입어 봐도 되나요?"]]],
+ ["Here we are! That's twenty-five dollars.","도착했어요! 25달러입니다.",[["Can I pay by card?","카드로 계산할 수 있나요?"],["Is breakfast included?","조식 포함인가요?"],["Do you have decaf?","디카페인 있나요?"]]]],
+htl:[["Good evening! How can I help you?","안녕하세요! 무엇을 도와드릴까요?",[["I have a reservation.","예약했어요."],["Chicken, please.","치킨으로 주세요."],["One more, please.","한 장 더 부탁해요."]]],
+ ["May I have your name, please?","성함이 어떻게 되세요?",[["The reservation is under Kim.","김 이름으로 예약했어요."],["I'll have this one.","이걸로 할게요."],["To go, please.","가져갈게요."]]],
+ ["Here is your key. Anything else?","열쇠 여기 있습니다. 더 필요한 거 있으세요?",[["What is the Wi-Fi password?","와이파이 비밀번호가 뭐예요?"],["Please call the police.","경찰 불러 주세요."],["Does this bus go downtown?","이 버스 시내 가나요?"]]]],
+eat:[["Hi! How many people?","안녕하세요! 몇 분이세요?",[["A table for two, please.","두 명 자리 주세요."],["I'm staying for one week.","일주일 머물러요."],["Where is gate twelve?","12번 게이트 어디예요?"]]],
+ ["Are you ready to order?","주문하시겠어요?",[["What do you recommend?","뭘 추천하세요?"],["I'm just looking, thank you.","그냥 구경 중이에요."],["My bag didn't come out.","가방이 안 나왔어요."]]],
+ ["Our steak is very popular.","저희 스테이크가 인기 많아요.",[["I'll have this one.","이걸로 할게요."],["I lost my wallet.","지갑을 잃어버렸어요."],["Can I change seats?","자리 바꿔도 돼요?"]]]],
+cafe:[["Hi! What can I get for you?","안녕하세요! 뭘 드릴까요?",[["One hot americano, please.","따뜻한 아메리카노 한 잔 주세요."],["I have nothing to declare.","신고할 물건 없어요."],["Please stop here.","여기서 세워 주세요."]]],
+ ["What size would you like?","사이즈는 어떻게 드릴까요?",[["A small size, please.","작은 사이즈로 주세요."],["Two adult tickets, please.","어른 두 장 주세요."],["I don't feel well.","몸이 안 좋아요."]]],
+ ["For here or to go?","드시고 가세요, 가져가세요?",[["For here, please.","여기서 마실게요."],["Can I check this bag?","이 가방 부칠 수 있나요?"],["I'm lost.","길을 잃었어요."]]]],
+shop:[["Hello! Can I help you find something?","안녕하세요! 찾으시는 거 있으세요?",[["I'm just looking, thank you.","그냥 구경하는 거예요, 고마워요."],["Is this flight on time?","이 비행기 제시간에 가요?"],["I have a stomachache.","배가 아파요."]]],
+ ["That jacket looks great on you!","그 재킷 정말 잘 어울리세요!",[["How much is this?","이거 얼마예요?"],["I have a reservation.","예약했어요."],["What time do we land?","몇 시에 도착해요?"]]],
+ ["It's eighty dollars.","80달러입니다.",[["It's a little expensive. Can you give me a discount?","조금 비싸네요. 깎아 주실 수 있나요?"],["Chicken, please.","치킨으로 주세요."],["Please call the police.","경찰 불러 주세요."]]]],
+tour:[["Welcome to the museum!","박물관에 오신 걸 환영합니다!",[["Two adult tickets, please.","어른 두 장 주세요."],["Can I have the check, please?","계산서 주세요."],["My flight was canceled.","비행기가 취소됐어요."]]],
+ ["That's forty dollars in total.","총 40달러입니다.",[["Is there a discount for seniors?","경로 할인 있나요?"],["Less sugar, please.","설탕 적게 넣어 주세요."],["I'm staying at the Hilton Hotel.","힐튼 호텔에 묵어요."]]],
+ ["Yes! Then it's thirty dollars. Enjoy!","네! 그럼 30달러입니다. 즐거운 관람 되세요!",[["Thank you! Can I take pictures here?","감사해요! 여기서 사진 찍어도 되나요?"],["Not too spicy, please.","너무 맵지 않게 해 주세요."],["Where is gate twelve?","12번 게이트 어디예요?"]]]],
+sos:[["Hi, what can I do for you?","안녕하세요, 무엇을 도와드릴까요?",[["I have a headache.","머리가 아파요."],["I'll take it.","이걸로 살게요."],["A small size, please.","작은 사이즈로 주세요."]]],
+ ["Do you have any allergies?","알레르기 있으세요?",[["I'm allergic to peanuts.","땅콩 알레르기가 있어요."],["It's so beautiful!","정말 아름다워요!"],["To go, please.","가져갈게요."]]],
+ ["Take this medicine twice a day.","이 약을 하루 두 번 드세요.",[["Thank you so much!","정말 감사합니다!"],["Can I try this on?","입어 봐도 되나요?"],["One ticket to the airport, please.","공항 가는 표 한 장 주세요."]]]]};
+
+const NPCS={
+emily:{ava:'👩‍✈️',name:'에밀리',desc:'상냥한 승무원 · 또박또박 친절하게',pitch:1.25,
+ hi:[["Hello! Let's practice together!","안녕하세요! 오늘도 같이 연습해요!"],["Ready for your trip?","여행 준비되셨어요?"],["You're doing great every day!","매일 정말 잘하고 계세요!"]],
+ good:[["Perfect!","완벽해요!"],["Great job!","정말 잘하셨어요!"],["You sound like a local!","현지인 같아요!"],["Wonderful!","멋져요!"]],
+ bad:[["That's okay!","괜찮아요, 다시 해봐요!"],["Almost there!","거의 다 왔어요!"],["No worries!","걱정 마세요, 천천히요!"]],
+ huh:[["Sorry? I don't understand.","네? 무슨 말씀인지 잘 모르겠어요."],["Hmm, could you say that again?","음, 다시 말씀해 주시겠어요?"]],
+ end:[["See you tomorrow!","내일 또 만나요!"],["You're ready to fly!","이제 비행기 타셔도 되겠어요!"]]},
+tony:{ava:'🧔',name:'토니',desc:'뉴욕 택시기사 · 유쾌하고 장난꾸러기',pitch:0.9,
+ hi:[["Hey there! Hop in!","어서 와요! 타세요!"],["What's up? Let's roll!","잘 지냈어요? 출발해볼까요!"]],
+ good:[["Awesome!","끝내줘요!"],["You got it!","바로 그거예요!"],["Whoa, nice!","와, 대박!"],["Boom! Perfect!","빵! 완벽!"]],
+ bad:[["Oops! Try again!","앗! 한 번 더!"],["Hmm, not quite.","음~ 살짝 아쉬워요"],["No problem, buddy!","괜찮아요, 친구!"]],
+ huh:[["Huh? What was that?","엥? 뭐라고요?"],["Wait, what? I'm confused!","잠깐만요, 헷갈려요!"]],
+ end:[["You rock! See ya!","최고예요! 또 봐요!"],["Same time tomorrow?","내일 이 시간에 또?"]]},
+marie:{ava:'👩‍🍳',name:'마리',desc:'파리 카페 사장님 · 우아하고 다정하게',pitch:1.1,
+ hi:[["Bonjour! Welcome to my cafe!","봉주르! 제 카페에 오신 걸 환영해요!"],["Hello, my friend!","안녕하세요, 친구!"]],
+ good:[["Lovely!","사랑스러워요!"],["Very good!","아주 좋아요!"],["Beautiful English!","영어가 정말 아름다워요!"]],
+ bad:[["Oh, almost!","어머, 거의 맞았어요!"],["Again, slowly.","천천히 다시 해봐요"],["It's okay, dear.","괜찮아요~"]],
+ huh:[["Pardon? I'm confused.","네? 헷갈리네요."],["Sorry, what do you mean?","죄송해요, 무슨 뜻이에요?"]],
+ end:[["See you soon, my friend!","곧 또 봐요, 친구!"],["Have a lovely evening!","좋은 저녁 보내세요!"]]},
+david:{ava:'🤵',name:'데이비드',desc:'런던 호텔 지배인 · 차분한 신사',pitch:0.75,
+ hi:[["Good day! Shall we begin?","좋은 하루입니다! 시작해 볼까요?"],["Welcome back!","다시 오신 걸 환영합니다!"]],
+ good:[["Excellent!","훌륭합니다!"],["Splendid!","대단하십니다!"],["Very well done.","아주 잘하셨습니다"]],
+ bad:[["Not to worry.","걱정 마십시오"],["Let's try once more.","한 번 더 해보시지요"]],
+ huh:[["I beg your pardon?","실례지만, 다시 말씀해 주시겠어요?"],["I'm afraid I don't follow.","죄송하지만 이해를 못 했습니다."]],
+ end:[["Splendid work today.","오늘 정말 훌륭하셨습니다."],["Until tomorrow!","내일 뵙겠습니다!"]]}};
+
+const LEVELS=[[0,'🌱 여행 새내기'],[100,'🧳 짐 싸는 중'],[250,'✈️ 공항 통과'],[500,'🗺️ 길 찾기 달인'],[800,'🍝 맛집 주문왕'],[1200,'🛍️ 쇼핑 고수'],[1800,'🌍 세계 여행자'],[2600,'👑 영어 할머니 여왕']];
+const INT=[0,1,2,4,7,15];
+const ALL=[];CATS.forEach(c=>S[c.id].forEach((s,i)=>ALL.push({id:c.id+i,cat:c.id,en:s[0],ko:s[1],pr:s[2],sit:s[3]})));
+const BYID={};ALL.forEach(x=>BYID[x.id]=x);
+
+// ===================== 저장 =====================
+const KEY='momEnglish_v1';
+let st;
+function load(){try{st=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+ st=Object.assign({npc:'emily',rate:0.8,hintKo:true,cards:{},xp:0,streak:0,lastDay:'',days:[],role:{},sessions:0},st||{})}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+load();
+const today=()=>new Date().toLocaleDateString('sv');
+function addDays(d,n){const t=new Date(d+'T12:00:00');t.setDate(t.getDate()+n);return t.toLocaleDateString('sv')}
+
+// ===================== 유틸 =====================
+const $=s=>document.querySelector(s);
+const app=$('#app');
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const npc=()=>NPCS[st.npc]||NPCS.emily;
+function level(){let l=LEVELS[0],n=null;for(let i=0;i<LEVELS.length;i++){if(st.xp>=LEVELS[i][0]){l=LEVELS[i];n=LEVELS[i+1]}}return{t:l[1],cur:l[0],next:n?n[0]:null}}
+
+// 음성 (TTS)
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang));
+ voice=vs.find(v=>/en[-_]US/i.test(v.lang)&&/Samantha|Google|Natural|Aria|Jenny/i.test(v.name))||vs.find(v=>/en[-_]US/i.test(v.lang))||vs[0]||null}
+try{if(window.speechSynthesis){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}}catch(e){}
+function say(text,opt={}){if(opt.end){const f=opt.end;let done=false;opt.end=()=>{if(!done){done=true;f()}};setTimeout(opt.end,text.length*90+1800)}
+ try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;
+ u.rate=opt.rate||st.rate;u.pitch=opt.pitch!=null?opt.pitch:npc().pitch;if(opt.end)u.onend=opt.end;speechSynthesis.speak(u)}catch(e){}}
+function npcSay(line,el){if(el){el.innerHTML=`<div class="en">${esc(line[0])}</div><div class="ko">${esc(line[1])}</div>`;el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop')}say(line[0],{rate:Math.min(1,st.rate+0.1)})}
+function confetti(){const em=['🎉','⭐','✨','🌸','✈️','💖'];for(let i=0;i<24;i++){const d=document.createElement('div');d.className='confetti';d.textContent=rnd(em);d.style.left=Math.random()*100+'vw';d.style.animationDelay=Math.random()*0.8+'s';document.body.appendChild(d);setTimeout(()=>d.remove(),3600)}}
+function npcBox(line,id='nb'){const n=npc();return `<div class="npc"><div class="ava">${n.ava}</div><div class="bubble pop" id="${id}"><div class="en">${esc(line[0])}</div><div class="ko">${esc(line[1])}</div></div></div>`}
+function bindNpcBubble(id='nb'){const b=document.getElementById(id);if(b)b.onclick=()=>{const en=b.querySelector('.en');if(en)say(en.textContent,{rate:Math.min(1,st.rate+0.1)})}}
+
+// 음성 인식 (지원 브라우저 + 마이크 허용 시에만, 아니면 스스로 평가)
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+function norm(t){return t.toLowerCase().replace(/[^a-z0-9 ]/g,'').split(/\s+/).filter(Boolean)}
+function score(target,heard){const a=norm(target),b=new Set(norm(heard));if(!a.length)return 0;return a.filter(w=>b.has(w)).length/a.length}
+function micHTML(){return SR?`<button class="btn blue" id="mic">🎤 말하고 확인받기</button><div id="heard"></div>`:''}
+function bindMic(x,onPass){if(!SR)return;const btn=$('#mic');if(!btn)return;
+ btn.onclick=()=>{let r;try{r=new SR()}catch(e){return}
+  r.lang='en-US';r.interimResults=false;r.maxAlternatives=3;
+  btn.disabled=true;btn.textContent='👂 듣고 있어요... 말씀하세요';try{speechSynthesis.cancel()}catch(e){}
+  r.onresult=e=>{let best=0,txt='';for(const alt of e.results[0]){const sc=score(x.en,alt.transcript);if(sc>=best){best=sc;txt=alt.transcript}}
+   const h=$('#heard');
+   if(best>=0.6){h.innerHTML=`<div class="fb ok">👂 들린 말: "${esc(txt)}" — 아주 좋아요!</div>`;setTimeout(onPass,700)}
+   else{h.innerHTML=`<div class="fb bad">👂 들린 말: "${esc(txt)}"<br><span style="font-weight:400">조금 달라요. 다시 해보거나 아래에서 스스로 평가해 주세요.</span></div>`}};
+  r.onerror=e=>{$('#heard').innerHTML=`<div class="hint">마이크를 쓸 수 없어요${e.error==='not-allowed'?' (마이크 권한을 허용해 주세요)':''}. 아래 버튼으로 스스로 평가해 주세요.</div>`};
+  r.onend=()=>{btn.disabled=false;btn.textContent='🎤 다시 말해보기'};
+  try{r.start()}catch(e){btn.disabled=false}}}
+
+// ===================== 홈 =====================
+function stampedToday(){return st.days.includes(today())}
+function home(){
+ try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}
+ const lv=level(),n=npc();
+ const due=ALL.filter(x=>st.cards[x.id]&&st.cards[x.id].due<=today()).length;
+ const learned=Object.keys(st.cards).length;
+ // 오늘의 한마디 (날짜 고정)
+ const seed=today().split('-').join('')%ALL.length;const tip=ALL[seed];
+ const greet=rnd(n.hi);
+ const streakAlive=st.lastDay===today()||st.lastDay===addDays(today(),-1);
+ const pct=lv.next?Math.round((st.xp-lv.cur)/(lv.next-lv.cur)*100):100;
+ app.innerHTML=`
+ <h1>엄마의 여행 영어 ✈️</h1>
+ ${npcBox(greet)}
+ <div class="stats">
+  <div class="stat"><b>🔥 ${streakAlive?st.streak:0}</b><span>연속 출석</span></div>
+  <div class="stat"><b>⭐ ${st.xp}</b><span>점수</span></div>
+  <div class="stat"><b>📖 ${learned}</b><span>배운 문장/100</span></div>
+ </div>
+ <div class="card"><div style="display:flex;justify-content:space-between"><b>${lv.t}</b><span class="hint">${lv.next?'다음 등급까지 '+(lv.next-st.xp)+'점':'최고 등급!'}</span></div>
+ <div class="prog"><i style="width:${pct}%"></i></div></div>
+ ${stampedToday()
+  ?`<div class="fb ok center">✅ 오늘 도장 받았어요! 내일 또 만나요</div><button class="btn sec" id="go">🔁 한 번 더 연습하기</button>`
+  :`<button class="btn" id="go">▶ 오늘의 연습 시작<br><span style="font-size:16px;font-weight:400">10문장 · 약 10분 ${due?'(복습 '+Math.min(due,6)+'개 포함)':''}</span></button>`}
+ <button class="btn blue" id="rp">🎭 상황극 대화하기<br><span style="font-size:16px;font-weight:400">${n.name}와(과) 실전처럼 대화</span></button>
+ <div class="card" id="tip" style="cursor:pointer"><span class="tag">오늘의 한마디 🔊</span>
+  <div class="big-en" style="font-size:22px">${esc(tip.en)}</div><div class="ko">${esc(tip.ko)}</div><div class="pron">${esc(tip.pr)}</div></div>
+ <div class="row"><button class="btn sec" id="pg">📒 진도·도장</button><button class="btn sec" id="set">⚙️ 설정</button></div>`;
+ bindNpcBubble();
+ $('#go').onclick=startSession;$('#rp').onclick=roleList;$('#pg').onclick=progress;$('#set').onclick=settings;
+ $('#tip').onclick=()=>say(tip.en);
+}
+
+// ===================== 오늘의 연습 =====================
+let Q;
+function startSession(){
+ const t=today();
+ const due=shuffle(ALL.filter(x=>st.cards[x.id]&&st.cards[x.id].due<=t)).slice(0,6);
+ const fresh=ALL.filter(x=>!st.cards[x.id]).slice(0,10-due.length);
+ let items=due.map(x=>({x,isNew:false}));
+ fresh.forEach(x=>items.push({x,isNew:true}));
+ if(items.length<10){ // 다 배웠으면 낮은 단계부터 추가 복습
+  const extra=shuffle(ALL.filter(x=>!items.find(i=>i.x.id===x.id))).sort((a,b)=>(st.cards[a.id]?.box||0)-(st.cards[b.id]?.box||0)).slice(0,10-items.length);
+  extra.forEach(x=>items.push({x,isNew:false}));
+ }
+ // 새 문장은 뒤쪽 섞기 (복습 먼저)
+ Q={items,i:0,right:0,wrong:0,xp:0,retried:{}};
+ nextCard();
+}
+function cardBox(id){return st.cards[id]?st.cards[id].box:0}
+function header(){const p=Math.round(Q.i/Q.items.length*100);
+ return `<div class="top"><button class="x" id="quit">✕</button><div class="prog" style="flex:1"><i style="width:${p}%"></i></div><span class="hint">${Math.min(Q.i+1,Q.items.length)}/${Q.items.length}</span></div>`}
+function bindQuit(){$('#quit').onclick=()=>{if(Q.i>0)saveCards();home()}}
+function saveCards(){save()}
+
+function nextCard(){
+ if(Q.i>=Q.items.length)return finish();
+ const it=Q.items[Q.i];
+ if(it.isNew&&!it.learned)return learnScreen(it);
+ const box=cardBox(it.x.id);
+ if(it.isNew||box===0)return qListen(it);
+ if(box===1)return qBlank(it);
+ if(box===2)return qRepeat(it);
+ return qSpeak(it);
+}
+function playBtns(en){return `<button class="play" data-say="${esc(en)}">🔊 듣기</button><button class="play slow" data-slow="${esc(en)}">🐢 천천히</button>`}
+function bindPlay(){app.querySelectorAll('[data-say]').forEach(b=>b.onclick=()=>say(b.dataset.say,{pitch:1}));
+ app.querySelectorAll('[data-slow]').forEach(b=>b.onclick=()=>say(b.dataset.slow,{rate:0.55,pitch:1}))}
+
+// 0) 새 문장 배우기
+function learnScreen(it){const x=it.x,c=CATS.find(c=>c.id===x.cat);
+ app.innerHTML=header()+`
+ <div class="card pop"><span class="tag">${c.e} ${c.n} · 새 문장</span>
+ <div class="hint" style="margin-top:8px">상황: ${esc(x.sit)}</div>
+ <div class="big-en">${esc(x.en)}</div><div class="ko" style="font-size:21px">${esc(x.ko)}</div><div class="pron">${esc(x.pr)}</div>
+ <div>${playBtns(x.en)}</div></div>
+ <div class="card hint">👄 소리를 듣고 <b>세 번 소리 내어</b> 따라 말해 보세요. 입으로 말해야 진짜 늘어요!</div>
+ <div id="cnt" class="center" style="font-size:34px">⚪⚪⚪</div>
+ <button class="btn sec" id="rep">🗣️ 따라 말했어요 (1번)</button>
+ <button class="btn" id="ok">다음 → 문제 풀기</button>`;
+ bindQuit();bindPlay();setTimeout(()=>say(x.en,{pitch:1}),300);
+ let n=0;$('#rep').onclick=()=>{n=Math.min(3,n+1);$('#cnt').textContent='🟠'.repeat(n)+'⚪'.repeat(3-n);$('#rep').textContent=n<3?`🗣️ 따라 말했어요 (${n+1}번)`:'👏 세 번 다 했어요!';if(n<3)say(x.en,{pitch:1});else{Q.xp+=3;st.xp+=3}};
+ $('#ok').onclick=()=>{it.learned=true;nextCard()};
+}
+
+// 공통 결과 처리
+function result(it,correct,detailHTML){
+ const n=npc(),line=correct?rnd(n.good):rnd(n.bad);
+ const x=it.x,t=today();
+ const firstTry=!Q.retried[x.id];
+ let c=st.cards[x.id]||{box:0,due:t};
+ if(firstTry){
+  if(correct){c.box=Math.min(5,c.box+1);c.due=addDays(t,INT[c.box]);Q.right++;Q.xp+=10;st.xp+=10}
+  else{c.box=Math.max(0,c.box-1);c.due=addDays(t,1);Q.wrong++;Q.xp+=2;st.xp+=2;
+   Q.retried[x.id]=1;Q.items.push({x,isNew:false,retry:true})} // 틀린 문장은 마지막에 한 번 더
+ }else if(correct){Q.xp+=5;st.xp+=5}
+ st.cards[x.id]=c;save();
+ const area=$('#res');
+ area.innerHTML=`${npcBox(line,'rb')}
+ <div class="fb ${correct?'ok':'bad'}">${correct?'⭕ 정답이에요!':'❌ 괜찮아요! 이 문장은 마지막에 한 번 더 나와요'}</div>
+ <div class="card"><div class="big-en" style="font-size:23px">${esc(x.en)}</div><div class="ko">${esc(x.ko)}</div><div class="pron">${esc(x.pr)}</div>${detailHTML||''}<div>${playBtns(x.en)}</div></div>
+ <button class="btn" id="nx">다음 ▶</button>`;
+ bindNpcBubble('rb');bindPlay();
+ npcSay(line);setTimeout(()=>say(x.en,{pitch:1}),1300);
+ $('#nx').onclick=()=>{Q.i++;nextCard()};
+ area.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// 1) 듣고 뜻 고르기
+function qListen(it){const x=it.x;
+ const others=shuffle(ALL.filter(y=>y.id!==x.id&&y.cat===x.cat)).slice(0,1).concat(shuffle(ALL.filter(y=>y.cat!==x.cat)).slice(0,1));
+ const opts=shuffle([x,...others]);
+ app.innerHTML=header()+`
+ <div class="card center"><span class="tag">👂 듣고 뜻 고르기</span>
+ <div style="margin:14px 0">${playBtns(x.en)}</div><div class="hint">소리를 듣고 알맞은 뜻을 골라 주세요</div></div>
+ <div id="opts">${opts.map(o=>`<button class="opt" data-id="${o.id}">${esc(o.ko)}</button>`).join('')}</div><div id="res"></div>`;
+ bindQuit();bindPlay();setTimeout(()=>say(x.en,{pitch:1}),300);
+ app.querySelectorAll('#opts .opt').forEach(b=>b.onclick=()=>{const ok=b.dataset.id===x.id;
+  app.querySelectorAll('#opts .opt').forEach(o=>{o.disabled=true;if(o.dataset.id===x.id)o.classList.add('right')});if(!ok)b.classList.add('wrong');result(it,ok)});
+}
+
+// 2) 빈칸 채우기
+const STOP=new Set(['the','a','an','is','to','i','my','me','you','it','can','do','for','this','of','in','at','on','and','please','i\'m','it\'s','i\'d','i\'ll','with','be','us']);
+function wordsOf(s){return s.replace(/[.,!?]/g,'').split(' ')}
+function qBlank(it){const x=it.x;
+ const ws=wordsOf(x.en);let cand=ws.filter(w=>!STOP.has(w.toLowerCase())&&w.length>=3);if(!cand.length)cand=ws;
+ const target=cand.sort((a,b)=>b.length-a.length)[0];
+ const pool=[...new Set(ALL.flatMap(y=>wordsOf(y.en)).filter(w=>w.length>=3&&!STOP.has(w.toLowerCase())&&w.toLowerCase()!==target.toLowerCase()))];
+ const opts=shuffle([target,...shuffle(pool).slice(0,2)]);
+ const shown=esc(x.en).replace(new RegExp('\\b'+target.replace(/[.*+?^${}()|[\]\\']/g,'\\$&')+'\\b'),'<span class="blank">&nbsp;?&nbsp;</span>');
+ app.innerHTML=header()+`
+ <div class="card"><span class="tag">✏️ 빈칸 채우기</span>
+ <div class="ko" style="margin-top:10px;font-size:21px">${esc(x.ko)}</div>
+ <div class="big-en" style="font-size:25px">${shown}</div>${playBtns(x.en)}</div>
+ <div id="opts">${opts.map(o=>`<button class="opt" data-w="${esc(o)}" style="text-align:center;font-weight:700">${esc(o)}</button>`).join('')}</div><div id="res"></div>`;
+ bindQuit();bindPlay();
+ app.querySelectorAll('#opts .opt').forEach(b=>b.onclick=()=>{const ok=b.dataset.w===target;
+  app.querySelectorAll('#opts .opt').forEach(o=>{o.disabled=true;if(o.dataset.w===target)o.classList.add('right')});if(!ok)b.classList.add('wrong');result(it,ok)});
+}
+
+// 3) 따라 말하기 (그림자 말하기)
+function qRepeat(it){const x=it.x;
+ app.innerHTML=header()+`
+ <div class="card"><span class="tag">🗣️ 듣고 따라 말하기</span>
+ <div class="big-en">${esc(x.en)}</div><div class="ko">${esc(x.ko)}</div><div class="pron">${esc(x.pr)}</div>${playBtns(x.en)}</div>
+ <div class="card hint">① 🔊 듣기 → ② <b>소리 내어 똑같이 말하기</b> → ③ 스스로 평가해 주세요.<br>이번엔 발음 힌트 없이도 말해 보면 더 좋아요!</div>
+ <div id="opts">${micHTML()}<button class="btn ok" id="y">😊 잘 말했어요</button><button class="btn sec" id="n">😅 아직 어려워요</button></div><div id="res"></div>`;
+ bindQuit();bindPlay();setTimeout(()=>say(x.en,{pitch:1}),300);
+ bindMic(x,()=>{$('#opts').remove();result(it,true)});
+ $('#y').onclick=()=>{$('#opts').remove();result(it,true)};$('#n').onclick=()=>{$('#opts').remove();result(it,false)};
+}
+
+// 4) 상황 보고 영어로 말하기 (최고 단계)
+function qSpeak(it){const x=it.x,c=CATS.find(c=>c.id===x.cat);
+ app.innerHTML=header()+`
+ <div class="card"><span class="tag">🎤 상황 말하기 · 최고 단계</span>
+ <div style="margin:10px 0 4px">${c.e} <b>${esc(x.sit)}</b></div>
+ <div class="ko" style="font-size:23px;font-weight:700">"${esc(x.ko)}"</div>
+ <div class="hint">👉 이 말을 영어로 <b>소리 내어</b> 말해 보세요. 그다음 정답을 확인해요.</div>
+ <div id="hintbox"></div></div>
+ <div id="opts">${micHTML()}<button class="btn sec" id="h">💡 첫 단어 힌트</button><button class="btn" id="sh">말해봤어요 → 정답 보기</button></div><div id="res"></div>`;
+ bindQuit();bindMic(x,()=>{$('#opts').remove();result(it,true)});
+ $('#h').onclick=()=>{$('#hintbox').innerHTML=`<div class="pron" style="margin-top:8px">힌트: ${esc(x.en.split(' ').slice(0,2).join(' '))} ...</div>`;$('#h').disabled=true};
+ $('#sh').onclick=()=>{say(x.en,{pitch:1});$('#opts').innerHTML=`<div class="card center"><div class="big-en" style="font-size:24px">${esc(x.en)}</div>${playBtns(x.en)}<div class="hint">내가 말한 것과 비슷했나요?</div></div>
+  <button class="btn ok" id="y">⭕ 거의 맞았어요</button><button class="btn sec" id="n">❌ 달랐어요</button>`;bindPlay();
+  $('#y').onclick=()=>{$('#opts').remove();result(it,true)};$('#n').onclick=()=>{$('#opts').remove();result(it,false)}};
+}
+
+// 결과 화면
+function finish(){
+ const t=today(),n=npc();let newStamp=false;
+ if(!st.days.includes(t)){newStamp=true;st.days.push(t);
+  st.streak=(st.lastDay===addDays(t,-1))?st.streak+1:1;st.lastDay=t;st.xp+=20;Q.xp+=20}
+ st.sessions++;save();
+ const line=rnd(n.end);const total=Q.right+Q.wrong;const acc=total?Math.round(Q.right/total*100):100;
+ const msg=acc>=90?'완벽한 하루! 🏆':acc>=70?'아주 잘하셨어요! 👏':'꾸준함이 최고예요! 💪';
+ app.innerHTML=`<h1 class="center">${msg}</h1>
+ ${npcBox(line)}
+ ${newStamp?`<div class="card center pop"><div style="font-size:70px">💮</div><b>오늘의 도장 쾅!</b><div class="hint">🔥 ${st.streak}일 연속 출석 · 보너스 +20점</div></div>`:''}
+ <div class="stats"><div class="stat"><b>${Q.right}</b><span>첫 번에 정답</span></div><div class="stat"><b>${acc}%</b><span>정답률</span></div><div class="stat"><b>+${Q.xp}</b><span>받은 점수</span></div></div>
+ <div class="card hint">💡 오늘 배운 문장은 내일, 3일 뒤, 일주일 뒤에 다시 나와요. 잊을 때쯤 다시 보는 게 오래 기억하는 비결이에요!</div>
+ <button class="btn blue" id="rp">🎭 배운 걸로 상황극 해보기</button>
+ <button class="btn sec" id="hm">🏠 처음으로</button>`;
+ bindNpcBubble();npcSay(line);confetti();
+ $('#rp').onclick=roleList;$('#hm').onclick=home;
+}
+
+// ===================== 상황극 =====================
+function roleList(){const n=npc();
+ app.innerHTML=`<div class="top"><button class="x" id="bk">←</button><h2 style="margin:0">🎭 상황극 대화</h2></div>
+ ${npcBox([`Let's talk! Pick a place.`,`${n.name}가 상대역을 맡아요. 장소를 골라 주세요!`])}
+ <div class="grid">${CATS.map(c=>`<button class="cat ${st.role[c.id]?'done':''}" data-c="${c.id}"><span class="e">${c.e}</span>${c.n}<br><span class="hint">${st.role[c.id]?'✅ '+st.role[c.id]+'회 성공':c.role+' 역'}</span></button>`).join('')}</div>
+ <div class="card hint">⚙️ 설정에서 대화 상대(에밀리·토니·마리·데이비드)와 한글 뜻 보기를 바꿀 수 있어요.</div>`;
+ bindNpcBubble();$('#bk').onclick=home;
+ app.querySelectorAll('.cat').forEach(b=>b.onclick=()=>rolePlay(b.dataset.c));
+}
+function rolePlay(cid){const c=CATS.find(x=>x.id===cid),n=npc(),turns=R[cid];let ti=0,miss=0;
+ app.innerHTML=`<div class="top"><button class="x" id="bk">✕</button><b>${c.e} ${c.n} · ${n.name}(${c.role})</b></div>
+ <div class="chat" id="chat"></div><div id="ctl"></div>`;
+ $('#bk').onclick=roleList;
+ const chat=$('#chat'),ctl=$('#ctl');
+ function addNpc(en,ko,cls=''){const d=document.createElement('div');d.className='npc pop';
+  d.innerHTML=`<div class="ava" style="width:48px;height:48px;font-size:34px">${n.ava}</div><div class="bubble ${cls}"><div class="en">${esc(en)}</div><div class="ko" ${st.hintKo?'':'style="display:none"'}>${esc(ko)}</div>${st.hintKo?'':'<div class="hint">👆 눌러서 다시 듣기 · 뜻 보기</div>'}</div>`;
+  const b=d.querySelector('.bubble');b.onclick=()=>{say(en);const k=b.querySelector('.ko');k.style.display='block'};
+  chat.appendChild(d);say(en);d.scrollIntoView({behavior:'smooth',block:'center'})}
+ function addMe(en){const d=document.createElement('div');d.className='me pop';d.textContent=en;chat.appendChild(d)}
+ function turn(){const t=turns[ti];addNpc(t[0],t[1]);
+  const opts=shuffle(t[2].map((o,i)=>({en:o[0],ko:o[1],ok:i===0})));
+  ctl.innerHTML=`<div class="hint" style="margin-top:6px">👇 어떻게 대답할까요? 고른 뒤 <b>소리 내어</b> 말해 보세요</div>`+opts.map((o,i)=>`<button class="opt" data-i="${i}">${esc(o.en)}${st.hintKo?`<small>${esc(o.ko)}</small>`:''}</button>`).join('');
+  ctl.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const o=opts[+b.dataset.i];
+   if(o.ok){ctl.innerHTML='';addMe(o.en);say(o.en,{pitch:1,end:()=>{
+     const g=rnd(n.good);setTimeout(()=>{addNpc(g[0],g[1]);ti++;setTimeout(()=>ti<turns.length?turn():done(),1600)},300)}});
+    }else{miss++;b.classList.add('wrong');b.disabled=true;addMe(o.en);
+     const h=rnd(n.huh);setTimeout(()=>addNpc(h[0],h[1],'wrongb'),500)}
+  })}
+ function done(){st.role[cid]=(st.role[cid]||0)+1;const bonus=miss===0?40:25;st.xp+=bonus;save();
+  const e=rnd(n.end);
+  ctl.innerHTML=`<div class="card center pop"><div style="font-size:56px">${miss===0?'🏆':'🎉'}</div><b>대화 성공!</b><div class="hint">${miss===0?'한 번도 안 틀렸어요! ':''}+${bonus}점</div></div>
+  <button class="btn" id="again">🔁 같은 상황 다시</button><button class="btn sec" id="other">다른 장소 고르기</button>`;
+  confetti();setTimeout(()=>addNpc(e[0],e[1]),200);
+  $('#again').onclick=()=>rolePlay(cid);$('#other').onclick=roleList}
+ turn();
+}
+
+// ===================== 진도 =====================
+function progress(){const t=today();
+ const cells=[];for(let i=27;i>=0;i--){const d=addDays(t,-i);const on=st.days.includes(d);cells.push(`<div class="${on?'on':''} ${i===0?'today':''}">${on?'💮':+d.slice(8)}</div>`)}
+ app.innerHTML=`<div class="top"><button class="x" id="bk">←</button><h2 style="margin:0">📒 진도 · 도장판</h2></div>
+ <div class="card"><b>최근 4주 출석 도장</b><div class="hint">총 ${st.days.length}일 · 연속 ${st.streak}일</div><div class="stamps" style="margin-top:8px">${cells.join('')}</div></div>
+ <div class="card"><b>🏅 배지</b><div style="margin-top:6px">${CATS.map(c=>{const m=S[c.id].every((s,i)=>cardBox(c.id+i)>=3);return `<span class="badge ${m?'':'off'}">${c.e} ${c.n} 마스터</span>`}).join('')}
+ <span class="badge ${st.streak>=7?'':'off'}">🔥 7일 연속</span><span class="badge ${st.days.length>=30?'':'off'}">📅 30일 출석</span><span class="badge ${CATS.every(c=>st.role[c.id])?'':'off'}">🎭 상황극 정복</span></div></div>
+ <div class="card"><b>상황별 진도</b> <span class="hint">(눌러서 문장 모아보기)</span>
+ ${CATS.map(c=>{const sum=S[c.id].reduce((a,s,i)=>a+Math.min(cardBox(c.id+i),4),0);const p=Math.round(sum/40*100);
+  return `<div style="margin-top:10px;cursor:pointer" data-c="${c.id}"><div style="display:flex;justify-content:space-between"><span>${c.e} ${c.n}</span><span class="hint">${p}%</span></div><div class="prog"><i style="width:${p}%"></i></div><div class="lst"></div></div>`}).join('')}</div>`;
+ $('#bk').onclick=home;
+ app.querySelectorAll('[data-c]').forEach(el=>el.onclick=e=>{if(e.target.closest('.mini'))return;const l=el.querySelector('.lst');
+  if(l.innerHTML){l.innerHTML='';return}
+  l.innerHTML=S[el.dataset.c].map((s,i)=>{const b=cardBox(el.dataset.c+i),seen=!!st.cards[el.dataset.c+i];
+   return `<div class="list-item"><button class="mini" data-s="${esc(s[0])}">🔊</button><div class="t"><b>${esc(s[0])}</b><div class="hint">${esc(s[1])}</div></div><span>${seen?'⭐'.repeat(Math.min(b,4))||'🌱':'🔒'}</span></div>`}).join('');
+  l.querySelectorAll('.mini').forEach(m=>m.onclick=ev=>{ev.stopPropagation();say(m.dataset.s,{pitch:1})})});
+}
+
+// ===================== 설정 =====================
+function settings(){
+ let resetArm=false;
+ const draw=()=>{
+ app.innerHTML=`<div class="top"><button class="x" id="bk">←</button><h2 style="margin:0">⚙️ 설정</h2></div>
+ <div class="card"><b>대화 상대 고르기</b><div class="hint">칭찬·위로·상황극 상대역을 맡아요. 누르면 목소리를 들어볼 수 있어요.</div>
+ ${Object.entries(NPCS).map(([k,v])=>`<div class="npcpick ${st.npc===k?'sel':''}" data-n="${k}"><div class="ava">${v.ava}</div><div><b>${v.name}</b>${st.npc===k?' ✅':''}<div class="hint">${v.desc}</div></div></div>`).join('')}</div>
+ <div class="card"><b>말하기 속도</b><div class="seg" style="margin-top:8px">${[[0.6,'🐢 아주 천천히'],[0.8,'🚶 천천히'],[1,'🏃 보통']].map(([r,l])=>`<button data-r="${r}" class="${st.rate==r?'sel':''}">${l}</button>`).join('')}</div></div>
+ <div class="card"><b>상황극 한글 뜻 보기</b><div class="hint">익숙해지면 꺼서 영어만 듣고 도전해 보세요!</div><div class="seg" style="margin-top:8px"><button data-h="1" class="${st.hintKo?'sel':''}">보이기</button><button data-h="0" class="${!st.hintKo?'sel':''}">숨기기 (도전!)</button></div></div>
+ <div class="card"><b>처음부터 다시</b><div class="hint">모든 진도와 도장이 지워져요.</div><button class="btn sec" id="rs" style="color:var(--bad)">${resetArm?'정말 지울까요? 한 번 더 누르면 삭제':'🗑️ 기록 초기화'}</button></div>`;
+ $('#bk').onclick=home;
+ app.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{st.npc=b.dataset.n;save();draw();npcSay(rnd(npc().hi))});
+ app.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{st.rate=+b.dataset.r;save();draw();say('Hello! Nice to meet you.',{pitch:1})});
+ app.querySelectorAll('[data-h]').forEach(b=>b.onclick=()=>{st.hintKo=b.dataset.h==='1';save();draw()});
+ $('#rs').onclick=()=>{if(!resetArm){resetArm=true;draw();return}try{localStorage.removeItem(KEY)}catch(e){}load();home()};
+ };draw();
+}
+
+try{home()}catch(e){app.innerHTML='<div class="card">앗, 오류가 났어요: '+esc(e.message)+'<br>Safari나 크롬으로 열어 주세요.</div>'}
+</script>
+</body>
+</html>
