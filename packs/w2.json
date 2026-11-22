@@ -1,0 +1,1248 @@
+{
+ "id": "w2",
+ "week": 2,
+ "date": "2026-11-23",
+ "title": "2주차 · 여행지에서 한 걸음 더",
+ "cats": [
+  {
+   "id": "w2rail",
+   "e": "🚄",
+   "n": "기차 여행",
+   "role": "역무원",
+   "s": [
+    [
+     "Which platform does this train leave from?",
+     "이 기차는 몇 번 승강장에서 출발해요?",
+     "위치 플랫폼 더즈 디스 트레인 리브 프롬?",
+     "승강장을 모를 때"
+    ],
+    [
+     "Two tickets to London, please.",
+     "런던행 표 두 장 주세요.",
+     "투 티킷츠 투 런던, 플리즈.",
+     "매표소에서 표 살 때"
+    ],
+    [
+     "Is this seat taken?",
+     "이 자리 주인 있어요?",
+     "이즈 디스 씻 테이큰?",
+     "빈자리인지 물을 때"
+    ],
+    [
+     "I think this is my seat.",
+     "여기 제 자리 같아요.",
+     "아이 띵크 디스 이즈 마이 씻.",
+     "내 좌석에 누가 앉아 있을 때"
+    ],
+    [
+     "Does this train stop at Rome?",
+     "이 기차 로마에 서나요?",
+     "더즈 디스 트레인 스탑 앳 롬?",
+     "정차역 확인할 때"
+    ],
+    [
+     "How long does it take?",
+     "얼마나 걸려요?",
+     "하우 롱 더즈 잇 테익?",
+     "소요 시간 물을 때"
+    ],
+    [
+     "Is there a dining car?",
+     "식당칸이 있나요?",
+     "이즈 데어 어 다이닝 카?",
+     "기차 안에서 먹을 곳 찾을 때"
+    ],
+    [
+     "Please tell me when we get there.",
+     "도착하면 알려 주세요.",
+     "플리즈 텔 미 웬 위 겟 데어.",
+     "내릴 역을 놓칠까 걱정될 때"
+    ],
+    [
+     "I missed my train.",
+     "기차를 놓쳤어요.",
+     "아이 미스드 마이 트레인.",
+     "기차를 놓쳤을 때"
+    ],
+    [
+     "When is the next train?",
+     "다음 기차는 언제예요?",
+     "웬 이즈 더 넥스트 트레인?",
+     "다음 열차 시간 물을 때"
+    ]
+   ],
+   "r": [
+    [
+     "Good morning. Where would you like to go?",
+     "안녕하세요. 어디로 가세요?",
+     [
+      [
+       "Two tickets to London, please.",
+       "런던행 표 두 장 주세요."
+      ],
+      [
+       "Not too spicy, please.",
+       "너무 맵지 않게 해 주세요."
+      ],
+      [
+       "Can I try this on?",
+       "입어 봐도 돼요?"
+      ]
+     ]
+    ],
+    [
+     "One way or round trip?",
+     "편도요, 왕복이요?",
+     [
+      [
+       "Round trip, please.",
+       "왕복으로 주세요."
+      ],
+      [
+       "I have a headache.",
+       "머리가 아파요."
+      ],
+      [
+       "For here, please.",
+       "여기서 먹을게요."
+      ]
+     ]
+    ],
+    [
+     "The train leaves at ten.",
+     "기차는 10시에 출발해요.",
+     [
+      [
+       "Which platform does it leave from?",
+       "몇 번 승강장에서 출발해요?"
+      ],
+      [
+       "It's delicious!",
+       "정말 맛있어요!"
+      ],
+      [
+       "Can I have a blanket?",
+       "담요 주실래요?"
+      ]
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "w2mkt",
+   "e": "🍊",
+   "n": "시장 구경",
+   "role": "시장 상인",
+   "s": [
+    [
+     "What is this fruit called?",
+     "이 과일 이름이 뭐예요?",
+     "왓 이즈 디스 프룻 콜드?",
+     "처음 보는 과일이 있을 때"
+    ],
+    [
+     "Can I taste one?",
+     "하나 맛봐도 돼요?",
+     "캔 아이 테이스트 원?",
+     "시식하고 싶을 때"
+    ],
+    [
+     "How much for one kilo?",
+     "1킬로에 얼마예요?",
+     "하우 머치 포 원 킬로?",
+     "무게로 파는 물건 값 물을 때"
+    ],
+    [
+     "Can you make it cheaper?",
+     "좀 싸게 해 줄 수 있어요?",
+     "캔 유 메이킷 치퍼?",
+     "흥정할 때"
+    ],
+    [
+     "I'll take three of these.",
+     "이거 세 개 살게요.",
+     "아일 테익 쓰리 오브 디즈.",
+     "개수를 정해 살 때"
+    ],
+    [
+     "Is it fresh today?",
+     "오늘 들어온 거예요?",
+     "이즈 잇 프레시 투데이?",
+     "신선한지 물을 때"
+    ],
+    [
+     "Just a little, please.",
+     "조금만 주세요.",
+     "저스트 어 리틀, 플리즈.",
+     "양을 적게 원할 때"
+    ],
+    [
+     "Could I have a bag?",
+     "봉투 하나 주실래요?",
+     "쿠다이 해브 어 백?",
+     "담을 봉투가 필요할 때"
+    ],
+    [
+     "Do you take cash only?",
+     "현금만 받으세요?",
+     "두 유 테익 캐시 온리?",
+     "결제 방법 물을 때"
+    ],
+    [
+     "Keep the change.",
+     "잔돈은 괜찮아요.",
+     "킵 더 체인지.",
+     "거스름돈을 안 받을 때"
+    ]
+   ],
+   "r": [
+    [
+     "Hello! Fresh mangoes today!",
+     "어서 오세요! 오늘 망고 싱싱해요!",
+     [
+      [
+       "Can I taste one?",
+       "하나 맛봐도 돼요?"
+      ],
+      [
+       "Where is gate twelve?",
+       "12번 게이트 어디예요?"
+      ],
+      [
+       "I'm staying for one week.",
+       "일주일 머물러요."
+      ]
+     ]
+    ],
+    [
+     "Ten euros for this box.",
+     "이 상자에 10유로예요.",
+     [
+      [
+       "Can you make it cheaper?",
+       "좀 싸게 해 줄 수 있어요?"
+      ],
+      [
+       "What time do we land?",
+       "몇 시에 착륙해요?"
+      ],
+      [
+       "Please call the police.",
+       "경찰 불러 주세요."
+      ]
+     ]
+    ],
+    [
+     "Okay, eight euros for you.",
+     "좋아요, 8유로에 드릴게요.",
+     [
+      [
+       "Great, I'll take it.",
+       "좋아요, 살게요."
+      ],
+      [
+       "My bag didn't come out.",
+       "제 가방이 안 나왔어요."
+      ],
+      [
+       "One hot americano, please.",
+       "따뜻한 아메리카노 하나요."
+      ]
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "w2chat",
+   "e": "☀️",
+   "n": "날씨·스몰토크",
+   "role": "옆자리 여행객",
+   "s": [
+    [
+     "Beautiful weather today, isn't it?",
+     "오늘 날씨 참 좋죠?",
+     "뷰티풀 웨더 투데이, 이즌잇?",
+     "대화를 시작할 때"
+    ],
+    [
+     "It's a little cold today.",
+     "오늘 좀 춥네요.",
+     "잇츠 어 리틀 콜드 투데이.",
+     "날씨 이야기할 때"
+    ],
+    [
+     "Will it rain tomorrow?",
+     "내일 비 올까요?",
+     "윌 잇 레인 투모로우?",
+     "내일 날씨가 궁금할 때"
+    ],
+    [
+     "Where are you from?",
+     "어디서 오셨어요?",
+     "웨어 아 유 프롬?",
+     "상대 고향을 물을 때"
+    ],
+    [
+     "I'm from Korea.",
+     "저는 한국에서 왔어요.",
+     "아임 프롬 코리아.",
+     "내 소개할 때"
+    ],
+    [
+     "Is this your first time here?",
+     "여기 처음 오셨어요?",
+     "이즈 디스 유어 퍼스트 타임 히어?",
+     "여행 경험을 물을 때"
+    ],
+    [
+     "How long are you traveling?",
+     "얼마 동안 여행하세요?",
+     "하우 롱 아 유 트래블링?",
+     "상대 여행 일정을 물을 때"
+    ],
+    [
+     "My English is not very good.",
+     "제 영어가 서툴러요.",
+     "마이 잉글리시 이즈 낫 베리 굿.",
+     "양해를 구할 때"
+    ],
+    [
+     "It was nice talking to you.",
+     "이야기 나눠서 즐거웠어요.",
+     "잇 워즈 나이스 토킹 투 유.",
+     "대화를 마무리할 때"
+    ],
+    [
+     "Have a nice trip!",
+     "즐거운 여행 되세요!",
+     "해브 어 나이스 트립!",
+     "헤어질 때 인사"
+    ]
+   ],
+   "r": [
+    [
+     "Lovely day, isn't it?",
+     "날씨 좋네요, 그렇죠?",
+     [
+      [
+       "Yes, beautiful weather today!",
+       "네, 오늘 날씨 정말 좋아요!"
+      ],
+      [
+       "Can I pay by card?",
+       "카드로 내도 돼요?"
+      ],
+      [
+       "I lost my wallet.",
+       "지갑을 잃어버렸어요."
+      ]
+     ]
+    ],
+    [
+     "Where are you from?",
+     "어디서 오셨어요?",
+     [
+      [
+       "I'm from Korea.",
+       "한국에서 왔어요."
+      ],
+      [
+       "Chicken, please.",
+       "치킨으로 주세요."
+      ],
+      [
+       "What time is checkout?",
+       "체크아웃 몇 시예요?"
+      ]
+     ]
+    ],
+    [
+     "Your English is very good!",
+     "영어 잘하시네요!",
+     [
+      [
+       "Thank you, I'm still learning.",
+       "고마워요, 아직 배우는 중이에요."
+      ],
+      [
+       "Is breakfast included?",
+       "조식 포함이에요?"
+      ],
+      [
+       "Please stop here.",
+       "여기서 세워 주세요."
+      ]
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "w2spa",
+   "e": "♨️",
+   "n": "온천·스파",
+   "role": "스파 직원",
+   "s": [
+    [
+     "I'd like to book a massage.",
+     "마사지 예약하고 싶어요.",
+     "아이드 라익 투 북 어 마사지.",
+     "마사지 예약할 때"
+    ],
+    [
+     "How long is the massage?",
+     "마사지는 얼마 동안 해요?",
+     "하우 롱 이즈 더 마사지?",
+     "시간을 물을 때"
+    ],
+    [
+     "Softer, please.",
+     "좀 더 살살 해 주세요.",
+     "소프터, 플리즈.",
+     "너무 아플 때"
+    ],
+    [
+     "A little stronger, please.",
+     "조금 더 세게 해 주세요.",
+     "어 리틀 스트롱거, 플리즈.",
+     "더 시원하게 받고 싶을 때"
+    ],
+    [
+     "Where is the changing room?",
+     "탈의실이 어디예요?",
+     "웨어 이즈 더 체인징 룸?",
+     "옷 갈아입을 곳 찾을 때"
+    ],
+    [
+     "Do I need a swimsuit?",
+     "수영복이 필요해요?",
+     "두 아이 니드 어 스윔숫?",
+     "준비물 확인할 때"
+    ],
+    [
+     "Can I borrow a towel?",
+     "수건 빌릴 수 있어요?",
+     "캔 아이 바로우 어 타월?",
+     "수건이 필요할 때"
+    ],
+    [
+     "The water is too hot for me.",
+     "물이 저한테 너무 뜨거워요.",
+     "더 워터 이즈 투 핫 포 미.",
+     "온천물이 뜨거울 때"
+    ],
+    [
+     "My shoulders are very stiff.",
+     "어깨가 많이 뭉쳤어요.",
+     "마이 숄더스 아 베리 스티프.",
+     "아픈 곳을 알려 줄 때"
+    ],
+    [
+     "That felt wonderful, thank you.",
+     "정말 좋았어요, 고마워요.",
+     "댓 펠트 원더풀, 땡큐.",
+     "마사지 끝나고 인사"
+    ]
+   ],
+   "r": [
+    [
+     "Welcome to our spa. How can I help?",
+     "스파에 오신 걸 환영해요. 무엇을 도와드릴까요?",
+     [
+      [
+       "I'd like to book a massage.",
+       "마사지 예약하고 싶어요."
+      ],
+      [
+       "Does this bus go downtown?",
+       "이 버스 시내 가요?"
+      ],
+      [
+       "I have nothing to declare.",
+       "신고할 것 없어요."
+      ]
+     ]
+    ],
+    [
+     "Is the pressure okay?",
+     "세기 괜찮으세요?",
+     [
+      [
+       "Softer, please.",
+       "좀 더 살살 해 주세요."
+      ],
+      [
+       "One more, please.",
+       "한 장 더요."
+      ],
+      [
+       "Where is the entrance?",
+       "입구가 어디예요?"
+      ]
+     ]
+    ],
+    [
+     "Any area to focus on?",
+     "특별히 신경 쓸 부위 있으세요?",
+     [
+      [
+       "My shoulders are very stiff.",
+       "어깨가 많이 뭉쳤어요."
+      ],
+      [
+       "To go, please.",
+       "포장해 주세요."
+      ],
+      [
+       "Two adult tickets, please.",
+       "어른 두 장 주세요."
+      ]
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "w2guide",
+   "e": "🚌",
+   "n": "패키지 투어 가이드",
+   "role": "투어 가이드",
+   "s": [
+    [
+     "What time should we meet?",
+     "몇 시에 모여요?",
+     "왓 타임 슈드 위 밋?",
+     "집합 시간 물을 때"
+    ],
+    [
+     "Where is the meeting point?",
+     "모이는 곳이 어디예요?",
+     "웨어 이즈 더 미팅 포인트?",
+     "집합 장소 물을 때"
+    ],
+    [
+     "How much free time do we have?",
+     "자유 시간이 얼마나 돼요?",
+     "하우 머치 프리 타임 두 위 해브?",
+     "자유 시간 확인할 때"
+    ],
+    [
+     "Which bus is ours?",
+     "어느 버스가 우리 거예요?",
+     "위치 버스 이즈 아워스?",
+     "버스를 못 찾을 때"
+    ],
+    [
+     "Can we stop for the restroom?",
+     "화장실 들렀다 갈 수 있어요?",
+     "캔 위 스탑 포 더 레스트룸?",
+     "화장실이 급할 때"
+    ],
+    [
+     "Please wait for me.",
+     "저 좀 기다려 주세요.",
+     "플리즈 웨잇 포 미.",
+     "일행에 늦을 때"
+    ],
+    [
+     "Could you walk a bit slower?",
+     "조금 천천히 걸어 주실래요?",
+     "쿠쥬 워크 어 빗 슬로워?",
+     "걸음이 빨라 따라가기 힘들 때"
+    ],
+    [
+     "What is that building?",
+     "저 건물은 뭐예요?",
+     "왓 이즈 댓 빌딩?",
+     "궁금한 건물이 보일 때"
+    ],
+    [
+     "Is lunch included in the tour?",
+     "점심이 투어에 포함돼요?",
+     "이즈 런치 인클루디드 인 더 투어?",
+     "식사 포함 여부 물을 때"
+    ],
+    [
+     "Thank you for a great tour.",
+     "좋은 투어 고마워요.",
+     "땡큐 포 어 그레잇 투어.",
+     "투어 끝나고 인사"
+    ]
+   ],
+   "r": [
+    [
+     "We'll stop here for one hour.",
+     "여기서 한 시간 쉬었다 갈게요.",
+     [
+      [
+       "Where is the meeting point?",
+       "모이는 곳이 어디예요?"
+      ],
+      [
+       "Can I get an iced latte?",
+       "아이스 라테 주실래요?"
+      ],
+      [
+       "My flight was canceled.",
+       "비행기가 취소됐어요."
+      ]
+     ]
+    ],
+    [
+     "Please be back by two o'clock.",
+     "2시까지 돌아오세요.",
+     [
+      [
+       "Okay, two o'clock. Got it.",
+       "네, 2시요. 알겠어요."
+      ],
+      [
+       "I'm allergic to peanuts.",
+       "땅콩 알레르기가 있어요."
+      ],
+      [
+       "Can I check this bag?",
+       "이 가방 부칠 수 있어요?"
+      ]
+     ]
+    ],
+    [
+     "Any questions before we go?",
+     "출발 전에 질문 있으세요?",
+     [
+      [
+       "Is lunch included in the tour?",
+       "점심이 투어에 포함돼요?"
+      ],
+      [
+       "I'll take it.",
+       "이걸로 살게요."
+      ],
+      [
+       "Where is the baggage claim?",
+       "짐 찾는 곳이 어디예요?"
+      ]
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "w2trans",
+   "e": "🔁",
+   "n": "공항 환승",
+   "role": "환승 안내 직원",
+   "s": [
+    [
+     "I have a connecting flight.",
+     "연결 항공편이 있어요.",
+     "아이 해브 어 커넥팅 플라잇.",
+     "환승객임을 알릴 때"
+    ],
+    [
+     "Where is the transfer desk?",
+     "환승 데스크가 어디예요?",
+     "웨어 이즈 더 트랜스퍼 데스크?",
+     "환승 창구 찾을 때"
+    ],
+    [
+     "Do I need to pick up my bag?",
+     "제 짐을 찾아야 하나요?",
+     "두 아이 니드 투 픽업 마이 백?",
+     "짐 처리를 확인할 때"
+    ],
+    [
+     "How do I get to Terminal 2?",
+     "2터미널은 어떻게 가요?",
+     "하우 두 아이 겟 투 터미널 투?",
+     "다른 터미널로 갈 때"
+    ],
+    [
+     "My layover is very short.",
+     "환승 시간이 아주 짧아요.",
+     "마이 레이오버 이즈 베리 쇼트.",
+     "시간이 촉박할 때"
+    ],
+    [
+     "Will I miss my next flight?",
+     "다음 비행기 놓치게 될까요?",
+     "윌 아이 미스 마이 넥스트 플라잇?",
+     "연착으로 불안할 때"
+    ],
+    [
+     "Is there a shuttle train?",
+     "셔틀 열차가 있어요?",
+     "이즈 데어 어 셔틀 트레인?",
+     "터미널 간 이동 수단 물을 때"
+    ],
+    [
+     "Here is my boarding pass.",
+     "여기 제 탑승권이에요.",
+     "히어 이즈 마이 보딩 패스.",
+     "탑승권을 보여 줄 때"
+    ],
+    [
+     "Where can I charge my phone?",
+     "휴대폰 어디서 충전해요?",
+     "웨어 캔 아이 차지 마이 폰?",
+     "충전할 곳 찾을 때"
+    ],
+    [
+     "Is there a place to rest?",
+     "쉴 수 있는 곳이 있어요?",
+     "이즈 데어 어 플레이스 투 레스트?",
+     "긴 대기 시간에 쉬고 싶을 때"
+    ]
+   ],
+   "r": [
+    [
+     "Hello. Can I help you?",
+     "안녕하세요. 도와드릴까요?",
+     [
+      [
+       "I have a connecting flight.",
+       "연결 항공편이 있어요."
+      ],
+      [
+       "Less sugar, please.",
+       "설탕 적게 해 주세요."
+      ],
+      [
+       "It's so beautiful!",
+       "정말 아름다워요!"
+      ]
+     ]
+    ],
+    [
+     "Can I see your boarding pass?",
+     "탑승권 보여 주시겠어요?",
+     [
+      [
+       "Here is my boarding pass.",
+       "여기 제 탑승권이에요."
+      ],
+      [
+       "Can I see the menu?",
+       "메뉴판 볼 수 있어요?"
+      ],
+      [
+       "I'm just looking.",
+       "그냥 보는 중이에요."
+      ]
+     ]
+    ],
+    [
+     "Your gate is in Terminal 2.",
+     "게이트는 2터미널에 있어요.",
+     [
+      [
+       "How do I get to Terminal 2?",
+       "2터미널은 어떻게 가요?"
+      ],
+      [
+       "Can you wrap it as a gift?",
+       "선물 포장해 주실래요?"
+      ],
+      [
+       "A table for two, please.",
+       "두 명 자리 주세요."
+      ]
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "w2mart",
+   "e": "🛒",
+   "n": "슈퍼마켓",
+   "role": "마트 직원",
+   "s": [
+    [
+     "Where can I find the milk?",
+     "우유는 어디 있어요?",
+     "웨어 캔 아이 파인드 더 밀크?",
+     "물건 위치 물을 때"
+    ],
+    [
+     "Do you sell bottled water?",
+     "생수 파세요?",
+     "두 유 셀 바틀드 워터?",
+     "생수 찾을 때"
+    ],
+    [
+     "Is this on sale?",
+     "이거 할인 중이에요?",
+     "이즈 디스 온 세일?",
+     "할인 여부 확인할 때"
+    ],
+    [
+     "What is the price per piece?",
+     "한 개에 얼마예요?",
+     "왓 이즈 더 프라이스 퍼 피스?",
+     "낱개 가격 물을 때"
+    ],
+    [
+     "Is this cheese or butter?",
+     "이거 치즈예요, 버터예요?",
+     "이즈 디스 치즈 오어 버터?",
+     "포장만 보고 모를 때"
+    ],
+    [
+     "Where is the checkout counter?",
+     "계산대가 어디예요?",
+     "웨어 이즈 더 체크아웃 카운터?",
+     "계산하러 갈 때"
+    ],
+    [
+     "I don't need a receipt.",
+     "영수증은 필요 없어요.",
+     "아이 돈 니드 어 리싯.",
+     "영수증 거절할 때"
+    ],
+    [
+     "Can I buy just one?",
+     "하나만 살 수 있어요?",
+     "캔 아이 바이 저스트 원?",
+     "묶음 상품을 낱개로 사고 싶을 때"
+    ],
+    [
+     "How do I use this machine?",
+     "이 기계 어떻게 써요?",
+     "하우 두 아이 유즈 디스 머신?",
+     "셀프 계산대가 어려울 때"
+    ],
+    [
+     "Do you have plastic bags?",
+     "비닐봉지 있어요?",
+     "두 유 해브 플라스틱 백스?",
+     "장바구니가 없을 때"
+    ]
+   ],
+   "r": [
+    [
+     "Can I help you find something?",
+     "찾으시는 거 도와드릴까요?",
+     [
+      [
+       "Where can I find the milk?",
+       "우유는 어디 있어요?"
+      ],
+      [
+       "I'm staying at the Hilton.",
+       "힐튼 호텔에 묵어요."
+      ],
+      [
+       "Can I change seats?",
+       "자리 바꿔도 돼요?"
+      ]
+     ]
+    ],
+    [
+     "It's in aisle five.",
+     "5번 통로에 있어요.",
+     [
+      [
+       "Thank you. And bottled water?",
+       "고마워요. 생수는요?"
+      ],
+      [
+       "My bag didn't come out.",
+       "가방이 안 나왔어요."
+      ],
+      [
+       "What time does boarding start?",
+       "탑승 몇 시에 시작해요?"
+      ]
+     ]
+    ],
+    [
+     "Would you like a bag?",
+     "봉투 드릴까요?",
+     [
+      [
+       "Yes, one bag, please.",
+       "네, 하나 주세요."
+      ],
+      [
+       "I'm here for sightseeing.",
+       "관광하러 왔어요."
+      ],
+      [
+       "Is it far from here?",
+       "여기서 멀어요?"
+      ]
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "w2diet",
+   "e": "🥗",
+   "n": "음식 알레르기·식단",
+   "role": "웨이터",
+   "s": [
+    [
+     "Does this have any nuts?",
+     "여기 견과류 들어 있어요?",
+     "더즈 디스 해브 애니 넛츠?",
+     "견과류 확인할 때"
+    ],
+    [
+     "I can't eat shrimp.",
+     "저는 새우를 못 먹어요.",
+     "아이 캔트 잇 쉬림프.",
+     "못 먹는 음식 알릴 때"
+    ],
+    [
+     "Is there pork in this?",
+     "이거 돼지고기 들어가요?",
+     "이즈 데어 포크 인 디스?",
+     "재료 확인할 때"
+    ],
+    [
+     "Do you have vegetarian dishes?",
+     "채식 메뉴 있어요?",
+     "두 유 해브 베지테리언 디시즈?",
+     "채식 메뉴 찾을 때"
+    ],
+    [
+     "No salt, please.",
+     "소금 빼 주세요.",
+     "노 솔트, 플리즈.",
+     "싱겁게 먹고 싶을 때"
+    ],
+    [
+     "Is this made with milk?",
+     "이거 우유로 만들었어요?",
+     "이즈 디스 메이드 위드 밀크?",
+     "유제품 확인할 때"
+    ],
+    [
+     "I'm on a diet.",
+     "다이어트 중이에요.",
+     "아임 온 어 다이엇.",
+     "가볍게 먹고 싶을 때"
+    ],
+    [
+     "Can I have soft rice?",
+     "부드러운 밥 될까요?",
+     "캔 아이 해브 소프트 라이스?",
+     "질게 지은 밥을 원할 때"
+    ],
+    [
+     "Please put the sauce on the side.",
+     "소스는 따로 주세요.",
+     "플리즈 풋 더 소스 온 더 사이드.",
+     "소스 양을 조절하고 싶을 때"
+    ],
+    [
+     "Is it very oily?",
+     "많이 기름진가요?",
+     "이즈 잇 베리 오일리?",
+     "기름진 음식이 걱정될 때"
+    ]
+   ],
+   "r": [
+    [
+     "Any allergies I should know about?",
+     "알레르기 있으신가요?",
+     [
+      [
+       "I can't eat shrimp.",
+       "저는 새우를 못 먹어요."
+      ],
+      [
+       "Where is gate twelve?",
+       "12번 게이트 어디예요?"
+      ],
+      [
+       "One more, please.",
+       "한 장 더요."
+      ]
+     ]
+    ],
+    [
+     "This salad has walnuts.",
+     "이 샐러드에는 호두가 들어가요.",
+     [
+      [
+       "Can I get it without nuts?",
+       "견과류 빼고 될까요?"
+      ],
+      [
+       "I'm traveling with my family.",
+       "가족과 여행 중이에요."
+      ],
+      [
+       "What time does it close?",
+       "몇 시에 닫아요?"
+      ]
+     ]
+    ],
+    [
+     "Of course. Anything else?",
+     "물론이죠. 더 필요하신 건요?",
+     [
+      [
+       "Please put the sauce on the side.",
+       "소스는 따로 주세요."
+      ],
+      [
+       "I lost my wallet.",
+       "지갑을 잃어버렸어요."
+      ],
+      [
+       "Can I check this bag?",
+       "가방 부칠 수 있어요?"
+      ]
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "w2thx",
+   "e": "💐",
+   "n": "칭찬·감사 표현",
+   "role": "친절한 현지인",
+   "s": [
+    [
+     "Thank you so much for your help.",
+     "도와주셔서 정말 고마워요.",
+     "땡큐 쏘 머치 포 유어 헬프.",
+     "도움을 받았을 때"
+    ],
+    [
+     "You are very kind.",
+     "정말 친절하시네요.",
+     "유 아 베리 카인드.",
+     "친절에 감사할 때"
+    ],
+    [
+     "I really appreciate it.",
+     "정말 감사드려요.",
+     "아이 리얼리 어프리시에잇 잇.",
+     "깊이 감사할 때"
+    ],
+    [
+     "Your city is so lovely.",
+     "도시가 정말 예뻐요.",
+     "유어 시티 이즈 쏘 러블리.",
+     "현지를 칭찬할 때"
+    ],
+    [
+     "I love your scarf.",
+     "스카프가 정말 예뻐요.",
+     "아이 러브 유어 스카프.",
+     "상대 옷차림 칭찬할 때"
+    ],
+    [
+     "That's very nice of you.",
+     "정말 고마운 마음이에요.",
+     "댓츠 베리 나이스 오브 유.",
+     "호의를 받았을 때"
+    ],
+    [
+     "You made my day.",
+     "덕분에 기분 좋은 하루예요.",
+     "유 메이드 마이 데이.",
+     "큰 기쁨을 받았을 때"
+    ],
+    [
+     "Sorry to bother you.",
+     "귀찮게 해서 미안해요.",
+     "쏘리 투 바더 유.",
+     "부탁하기 전에"
+    ],
+    [
+     "No problem at all.",
+     "전혀 괜찮아요.",
+     "노 프라블럼 앳 올.",
+     "상대가 사과할 때"
+    ],
+    [
+     "Take care, goodbye!",
+     "잘 지내세요, 안녕히!",
+     "테익 케어, 굿바이!",
+     "작별 인사할 때"
+    ]
+   ],
+   "r": [
+    [
+     "Here, let me help you with that.",
+     "제가 도와드릴게요.",
+     [
+      [
+       "Thank you so much for your help.",
+       "도와주셔서 정말 고마워요."
+      ],
+      [
+       "Can I have the check?",
+       "계산서 주실래요?"
+      ],
+      [
+       "I'm staying for one week.",
+       "일주일 머물러요."
+      ]
+     ]
+    ],
+    [
+     "Oh, it's nothing!",
+     "에이, 별거 아니에요!",
+     [
+      [
+       "You are very kind.",
+       "정말 친절하시네요."
+      ],
+      [
+       "Is this flight on time?",
+       "이 비행기 제시간에 가요?"
+      ],
+      [
+       "Do you have decaf?",
+       "디카페인 있어요?"
+      ]
+     ]
+    ],
+    [
+     "Enjoy your stay here!",
+     "여기서 즐겁게 지내세요!",
+     [
+      [
+       "Take care, goodbye!",
+       "잘 지내세요, 안녕히!"
+      ],
+      [
+       "I have a stomachache.",
+       "배가 아파요."
+      ],
+      [
+       "How much is this?",
+       "이거 얼마예요?"
+      ]
+     ]
+    ]
+   ]
+  },
+  {
+   "id": "w2family",
+   "e": "👨‍👩‍👧",
+   "n": "현지인과 가족 이야기",
+   "role": "현지인 할머니",
+   "s": [
+    [
+     "I'm traveling with my daughter.",
+     "딸과 함께 여행 중이에요.",
+     "아임 트래블링 위드 마이 도터.",
+     "동행을 소개할 때"
+    ],
+    [
+     "This is my husband.",
+     "이 사람은 제 남편이에요.",
+     "디스 이즈 마이 허즈번드.",
+     "남편을 소개할 때"
+    ],
+    [
+     "I have two children.",
+     "자녀가 둘 있어요.",
+     "아이 해브 투 칠드런.",
+     "가족 이야기할 때"
+    ],
+    [
+     "My son lives in Seoul.",
+     "아들은 서울에 살아요.",
+     "마이 썬 리브즈 인 서울.",
+     "가족 근황 말할 때"
+    ],
+    [
+     "I have three grandchildren.",
+     "손주가 셋 있어요.",
+     "아이 해브 쓰리 그랜칠드런.",
+     "손주 자랑할 때"
+    ],
+    [
+     "Would you like to see a photo?",
+     "사진 보실래요?",
+     "우쥬 라익 투 씨 어 포토?",
+     "가족 사진 보여 줄 때"
+    ],
+    [
+     "Do you have any grandchildren?",
+     "손주 있으세요?",
+     "두 유 해브 애니 그랜칠드런?",
+     "상대 가족을 물을 때"
+    ],
+    [
+     "What a lovely family!",
+     "가족이 참 보기 좋네요!",
+     "왓 어 러블리 패밀리!",
+     "상대 가족 칭찬할 때"
+    ],
+    [
+     "We are celebrating our anniversary.",
+     "결혼기념일 여행 중이에요.",
+     "위 아 셀러브레이팅 아워 애니버서리.",
+     "여행 이유를 말할 때"
+    ],
+    [
+     "They grow up so fast.",
+     "애들은 정말 빨리 커요.",
+     "데이 그로우 업 쏘 패스트.",
+     "자녀 이야기에 맞장구칠 때"
+    ]
+   ],
+   "r": [
+    [
+     "Are you traveling alone?",
+     "혼자 여행하세요?",
+     [
+      [
+       "I'm traveling with my daughter.",
+       "딸과 함께 여행 중이에요."
+      ],
+      [
+       "Can I pay by card?",
+       "카드로 내도 돼요?"
+      ],
+      [
+       "Where is the pharmacy?",
+       "약국 어디예요?"
+      ]
+     ]
+    ],
+    [
+     "Do you have grandchildren?",
+     "손주 있으세요?",
+     [
+      [
+       "Yes, I have three grandchildren.",
+       "네, 손주가 셋 있어요."
+      ],
+      [
+       "Is breakfast included?",
+       "조식 포함이에요?"
+      ],
+      [
+       "Please stop here.",
+       "여기서 세워 주세요."
+      ]
+     ]
+    ],
+    [
+     "Oh, I'd love to see them!",
+     "어머, 보고 싶네요!",
+     [
+      [
+       "Would you like to see a photo?",
+       "사진 보실래요?"
+      ],
+      [
+       "I have nothing to declare.",
+       "신고할 것 없어요."
+      ],
+      [
+       "A small size, please.",
+       "작은 사이즈로 주세요."
+      ]
+     ]
+    ]
+   ]
+  }
+ ]
+}
