@@ -24,4 +24,5 @@
 1. `packs/w{N}.json` 추가 (N = 마지막 팩 주차 + 1)
 2. `manifest.json`: `packs`에 추가, `version` 마이너 +1 (1.1.0 → 1.2.0), `updated`, `notice`(id=version) 교체, `history` 맨 앞에 항목 추가
 3. `CHANGELOG.md` 맨 위에 항목 추가
+- 버그 수정·기능 개선은 패치 +1 (1.2.0 → 1.2.1), history에 기록. 공지를 새로 띄울 때만 notice 교체.
 4. `node tools/validate.js` 통과 확인 → 커밋 → main에 push (GitHub Pages 자동 반영)

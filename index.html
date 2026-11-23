@@ -195,7 +195,7 @@ function home(){
  const streakAlive=st.lastDay===today()||st.lastDay===addDays(today(),-1);
  const pct=lv.next?Math.round((st.xp-lv.cur)/(lv.next-lv.cur)*100):100;
  app.innerHTML=`
- <h1>엄마의 여행 영어 ✈️</h1>
+ <h1>엄마의 여행 영어 ✈️ <span id="vb" style="font-size:14px;vertical-align:middle;background:#ffe9d6;color:#c2541c;border-radius:10px;padding:3px 9px;cursor:pointer;font-weight:700">v${MANIFEST?esc(MANIFEST.version):'-'}${MANIFEST&&MANIFEST.notice&&st.seenNotice!==MANIFEST.notice.id?' 🔴':''}</span></h1>
  ${(!HAS_TTS||IN_APP)?`<div class="fb bad" style="font-weight:400">🔇 <b>이 화면에선 소리가 안 날 수 있어요.</b><br>오른쪽 아래(또는 위) <b>⋯ → 다른 브라우저로 열기</b>를 눌러 Safari·크롬으로 열어 주세요.</div>`:''}
  ${npcBox(greet)}
  <div class="stats">
@@ -214,10 +214,10 @@ function home(){
   <div class="big-en" style="font-size:22px">${esc(tip.en)}</div><div class="ko">${esc(tip.ko)}</div><div class="pron">${esc(tip.pr)}</div></div>
  <div class="row"><button class="btn sec" id="pg">📒 진도·도장</button><button class="btn sec" id="set">⚙️ 설정</button></div>
  <button class="btn sec" id="snd" style="font-size:18px">🔈 소리가 안 나요?</button>
- <div class="center hint" style="margin-top:14px;cursor:pointer" id="ver">📢 공지·업데이트 내역 · v${MANIFEST?esc(MANIFEST.version):'-'}</div>`;
+ <button class="btn sec" id="ver" style="font-size:18px">📢 공지·업데이트 내역 <span class="hint">(현재 v${MANIFEST?esc(MANIFEST.version):'-'} · ${MANIFEST?esc(MANIFEST.updated):''})</span></button>`;
  bindNpcBubble();
  $('#go').onclick=startSession;$('#rp').onclick=roleList;$('#pg').onclick=progress;$('#set').onclick=settings;
- $('#tip').onclick=()=>say(tip.en);$('#snd').onclick=soundHelp;$("#ver").onclick=showHistory;const np=$('#np');if(np)np.onclick=()=>startSession(np.dataset.p);
+ $('#tip').onclick=()=>say(tip.en);$('#snd').onclick=soundHelp;$("#ver").onclick=showHistory;$("#vb").onclick=showHistory;const np=$('#np');if(np)np.onclick=()=>startSession(np.dataset.p);
 }
 
 // ===================== 오늘의 연습 =====================
@@ -460,10 +460,11 @@ function showNotice(force){const m=MANIFEST;if(!m||!m.notice)return;if(!force&&s
  <button class="btn" id="nok">확인했어요 👍</button><div class="center hint" id="nhis" style="cursor:pointer">전체 업데이트 내역 보기</div></div>`;
  document.body.appendChild(d);const close=()=>{st.seenNotice=m.notice.id;save();d.remove()};
  d.querySelector('#nok').onclick=close;d.querySelector('#nhis').onclick=()=>{close();showHistory()}}
-function showHistory(){const m=MANIFEST||{history:[]};
+function showHistory(){const m=MANIFEST||{history:[]};if(m.notice){st.seenNotice=m.notice.id;save()}
  app.innerHTML=`<div class="top"><button class="x" id="bk">←</button><h2 style="margin:0">📢 공지·업데이트 내역</h2></div>
  ${m.notice?`<div class="card"><span class="tag">최신 공지</span><h2>${esc(m.notice.title)}</h2>${(m.notice.body||[]).map(b=>`<p style="margin:6px 0">${esc(b)}</p>`).join('')}</div>`:''}
- <div class="card"><b>버전 기록</b>${(m.history||[]).map(h=>`<div style="border-top:1px solid var(--line);margin-top:10px;padding-top:10px"><b>v${esc(h.version)}</b> <span class="hint">${esc(h.date)}</span><div>${esc(h.title||'')}</div><ul style="margin:4px 0;padding-left:20px;font-size:17px">${(h.changes||[]).map(c=>`<li>${esc(c)}</li>`).join('')}</ul></div>`).join('')}</div>
+ <div class="stats"><div class="stat"><b>v${esc(m.version||'-')}</b><span>현재 버전</span></div><div class="stat"><b>${PACKS.length}주차</b><span>문장 묶음</span></div><div class="stat"><b>${ALL.length}</b><span>전체 문장</span></div></div>
+ <div class="card"><b>버전 기록</b> <span class="hint">(총 ${(m.history||[]).length}회 업데이트)</span>${(m.history||[]).map((h,i)=>`<div style="border-top:1px solid var(--line);margin-top:10px;padding-top:10px"><b>v${esc(h.version)}</b>${i===0?' <span class="tag">현재</span>':''} <span class="hint">${esc(h.date)}</span><div>${esc(h.title||'')}</div><ul style="margin:4px 0;padding-left:20px;font-size:17px">${(h.changes||[]).map(c=>`<li>${esc(c)}</li>`).join('')}</ul></div>`).join('')}</div>
  <div class="card hint">📅 매주 월요일 아침에 새 문장 100개가 추가돼요!</div>`;
  $('#bk').onclick=home}
 
@@ -476,8 +477,9 @@ function settings(){
  ${Object.entries(NPCS).map(([k,v])=>`<div class="npcpick ${st.npc===k?'sel':''}" data-n="${k}"><div class="ava">${v.ava}</div><div><b>${v.name}</b>${st.npc===k?' ✅':''}<div class="hint">${v.desc}</div></div></div>`).join('')}</div>
  <div class="card"><b>말하기 속도</b><div class="seg" style="margin-top:8px">${[[0.6,'🐢 아주 천천히'],[0.8,'🚶 천천히'],[1,'🏃 보통']].map(([r,l])=>`<button data-r="${r}" class="${st.rate==r?'sel':''}">${l}</button>`).join('')}</div></div>
  <div class="card"><b>상황극 한글 뜻 보기</b><div class="hint">익숙해지면 꺼서 영어만 듣고 도전해 보세요!</div><div class="seg" style="margin-top:8px"><button data-h="1" class="${st.hintKo?'sel':''}">보이기</button><button data-h="0" class="${!st.hintKo?'sel':''}">숨기기 (도전!)</button></div></div>
+ <div class="card"><b>앱 정보</b><div class="hint">버전 v${MANIFEST?esc(MANIFEST.version):'-'} · 업데이트 ${MANIFEST?esc(MANIFEST.updated):'-'} · 문장 ${ALL.length}개</div><button class="btn sec" id="vh">📢 업데이트 내역 보기</button></div>
  <div class="card"><b>처음부터 다시</b><div class="hint">모든 진도와 도장이 지워져요.</div><button class="btn sec" id="rs" style="color:var(--bad)">${resetArm?'정말 지울까요? 한 번 더 누르면 삭제':'🗑️ 기록 초기화'}</button></div>`;
- $('#bk').onclick=home;
+ $('#bk').onclick=home;$('#vh').onclick=showHistory;
  app.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{st.npc=b.dataset.n;save();draw();npcSay(rnd(npc().hi))});
  app.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{st.rate=+b.dataset.r;save();draw();say('Hello! Nice to meet you.',{pitch:1})});
  app.querySelectorAll('[data-h]').forEach(b=>b.onclick=()=>{st.hintKo=b.dataset.h==='1';save();draw()});

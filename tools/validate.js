@@ -2,7 +2,7 @@
 const fs=require('fs');const path=require('path');const root=path.join(__dirname,'..');
 const err=[];const m=JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8'));
 if(!/^\d+\.\d+\.\d+$/.test(m.version))err.push('manifest.version 형식 오류');
-if(!m.notice||m.notice.id!==m.version)err.push('notice.id 는 version 과 같아야 함');
+if(!m.notice||!(m.history||[]).some(h=>h.version===m.notice.id))err.push('notice.id 는 history 에 있는 버전이어야 함');
 if(!m.history||m.history[0].version!==m.version)err.push('history 맨 앞이 현재 version 이어야 함');
 const catIds=new Set(),sentences=new Map(),packIds=new Set();
 for(const f of m.packs){const p=JSON.parse(fs.readFileSync(path.join(root,'packs',f),'utf8'));
