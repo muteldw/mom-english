@@ -131,6 +131,23 @@ function load(){try{st=JSON.parse(localStorage.getItem(KEY))}catch(e){}
  st=Object.assign({npc:'emily',rate:0.8,hintKo:true,cards:{},xp:0,streak:0,lastDay:'',days:[],role:{},sessions:0},st||{})}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
 load();
+// ===================== 사용 기록 (로그) =====================
+if(!st.device){st.device=Math.random().toString(36).slice(2,8);save()}
+function nowKST(){const d=new Date(Date.now()+9*3600e3);return d.toISOString().slice(0,19).replace('T',' ')}
+function uaShort(){const u=navigator.userAgent||'';return (/iPhone|iPad/.test(u)?'iPhone':/Android/.test(u)?'Android':/Mac/.test(u)?'Mac':/Windows/.test(u)?'PC':'기타')+(/KAKAOTALK/i.test(u)?'·카톡':/CriOS|Chrome/.test(u)?'·크롬':/SamsungBrowser/.test(u)?'·삼성':/Safari/.test(u)?'·사파리':'')}
+function logEvent(event,detail){
+ const rec={ts:nowKST(),name:st.name||'(이름없음)',device:st.device,event,detail:detail||'',version:MANIFEST?MANIFEST.version:'-',ua:uaShort()};
+ st.log=(st.log||[]);st.log.push({t:rec.ts,e:event,d:rec.detail});if(st.log.length>300)st.log=st.log.slice(-300);save();
+ const url=MANIFEST&&MANIFEST.logUrl;if(!url)return;
+ try{fetch(url,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(rec)}).catch(()=>{})}catch(e){}}
+const EV={open:'📱 접속',study:'📝 오늘의 연습 완료',role:'🎭 상황극 완료',newpack:'🆕 새 문장 시작',name:'✏️ 이름 설정'};
+function askName(after){
+ const d=document.createElement('div');d.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:30;padding:18px';
+ d.innerHTML=`<div class="card pop" style="max-width:440px;width:100%"><h2>반가워요! 👋</h2><p style="margin:4px 0 10px">이름이나 별명을 알려 주세요.<br><span class="hint">예: 엄마, 이모, 영희</span></p>
+ <input id="nm" maxlength="12" value="${esc(st.name||'')}" style="width:100%;font-size:22px;padding:12px;border-radius:14px;border:2px solid var(--line);font-family:inherit">
+ <button class="btn" id="nmok">시작하기</button><div class="hint center">학습 기록(접속 시간·완료한 연습)이 이 이름으로 저장돼요.</div></div>`;
+ document.body.appendChild(d);const ok=()=>{const v=d.querySelector('#nm').value.trim();if(!v)return;st.name=v;save();d.remove();logEvent('name',v);after&&after()};
+ d.querySelector('#nmok').onclick=ok;d.querySelector('#nm').onkeydown=e=>{if(e.key==='Enter')ok()};}
 const today=()=>new Date().toLocaleDateString('sv');
 function addDays(d,n){const t=new Date(d+'T12:00:00');t.setDate(t.getDate()+n);return t.toLocaleDateString('sv')}
 
@@ -217,7 +234,7 @@ function home(){
  <button class="btn sec" id="ver" style="font-size:18px">📢 공지·업데이트 내역 <span class="hint">(현재 v${MANIFEST?esc(MANIFEST.version):'-'} · ${MANIFEST?esc(MANIFEST.updated):''})</span></button>`;
  bindNpcBubble();
  $('#go').onclick=startSession;$('#rp').onclick=roleList;$('#pg').onclick=progress;$('#set').onclick=settings;
- $('#tip').onclick=()=>say(tip.en);$('#snd').onclick=soundHelp;$("#ver").onclick=showHistory;$("#vb").onclick=showHistory;const np=$('#np');if(np)np.onclick=()=>startSession(np.dataset.p);
+ $('#tip').onclick=()=>say(tip.en);$('#snd').onclick=soundHelp;$("#ver").onclick=showHistory;$("#vb").onclick=showHistory;const np=$('#np');if(np)np.onclick=()=>{logEvent('newpack',np.dataset.p);startSession(np.dataset.p)};
 }
 
 // ===================== 오늘의 연습 =====================
@@ -361,7 +378,7 @@ function finish(){
  const t=today(),n=npc();let newStamp=false;
  if(!st.days.includes(t)){newStamp=true;st.days.push(t);
   st.streak=(st.lastDay===addDays(t,-1))?st.streak+1:1;st.lastDay=t;st.xp+=20;Q.xp+=20}
- st.sessions++;save();
+ st.sessions++;save();logEvent('study',`${Q.right}/${Q.right+Q.wrong} 정답, +${Q.xp}점, 연속 ${st.streak}일`);
  const line=rnd(n.end);const total=Q.right+Q.wrong;const acc=total?Math.round(Q.right/total*100):100;
  const msg=acc>=90?'완벽한 하루! 🏆':acc>=70?'아주 잘하셨어요! 👏':'꾸준함이 최고예요! 💪';
  app.innerHTML=`<h1 class="center">${msg}</h1>
@@ -403,7 +420,7 @@ function rolePlay(cid){const c=CATS.find(x=>x.id===cid),n=npc(),turns=R[cid];let
     }else{miss++;b.classList.add('wrong');b.disabled=true;addMe(o.en);
      const h=rnd(n.huh);setTimeout(()=>addNpc(h[0],h[1],'wrongb'),500)}
   })}
- function done(){st.role[cid]=(st.role[cid]||0)+1;const bonus=miss===0?40:25;st.xp+=bonus;save();
+ function done(){st.role[cid]=(st.role[cid]||0)+1;const bonus=miss===0?40:25;st.xp+=bonus;save();logEvent('role',`${c.n} (실수 ${miss}번)`);
   const e=rnd(n.end);
   ctl.innerHTML=`<div class="card center pop"><div style="font-size:56px">${miss===0?'🏆':'🎉'}</div><b>대화 성공!</b><div class="hint">${miss===0?'한 번도 안 틀렸어요! ':''}+${bonus}점</div></div>
   <button class="btn" id="again">🔁 같은 상황 다시</button><button class="btn sec" id="other">다른 장소 고르기</button>`;
@@ -419,6 +436,8 @@ function progress(){const t=today();
  <div class="card"><b>최근 4주 출석 도장</b><div class="hint">총 ${st.days.length}일 · 연속 ${st.streak}일</div><div class="stamps" style="margin-top:8px">${cells.join('')}</div></div>
  <div class="card"><b>🏅 배지</b><div style="margin-top:6px">${CATS.map(c=>{const m=S[c.id].every((s,i)=>cardBox(c.id+i)>=3);return `<span class="badge ${m?'':'off'}">${c.e} ${c.n} 마스터</span>`}).join('')}
  <span class="badge ${st.streak>=7?'':'off'}">🔥 7일 연속</span><span class="badge ${st.days.length>=30?'':'off'}">📅 30일 출석</span><span class="badge ${CATS.every(c=>st.role[c.id])?'':'off'}">🎭 상황극 정복</span><span class="badge ${Object.keys(st.cards).length>=ALL.length?'':'off'}">📚 전체 문장 도전</span></div></div>
+ <div class="card"><b>📜 접속·학습 기록</b> <span class="hint">(${esc(st.name||'')} · 최근 30개)</span>
+ <div style="font-size:16px;margin-top:6px">${(st.log||[]).slice(-30).reverse().map(l=>`<div class="list-item" style="padding:6px 0"><span class="hint" style="flex:none;width:118px">${esc(l.t.slice(5,16))}</span><span class="t">${EV[l.e]||esc(l.e)} ${esc(l.d||'')}</span></div>`).join('')||'<div class="hint">아직 기록이 없어요</div>'}</div></div>
  <div class="card"><b>상황별 진도</b> <span class="hint">(눌러서 문장 모아보기)</span>
  ${CATS.map(c=>{const sum=S[c.id].reduce((a,s,i)=>a+Math.min(cardBox(c.id+i),4),0);const p=Math.round(sum/40*100);
   return `<div style="margin-top:10px;cursor:pointer" data-c="${c.id}"><div style="display:flex;justify-content:space-between"><span>${c.e} ${esc(c.n)} <span class="hint">${c.pack!=='w1'?esc((PACKS.find(p=>p.id===c.pack)||{}).week||'')+'주차':''}</span></span><span class="hint">${p}%</span></div><div class="prog"><i style="width:${p}%"></i></div><div class="lst"></div></div>`}).join('')}</div>`;
@@ -477,9 +496,10 @@ function settings(){
  ${Object.entries(NPCS).map(([k,v])=>`<div class="npcpick ${st.npc===k?'sel':''}" data-n="${k}"><div class="ava">${v.ava}</div><div><b>${v.name}</b>${st.npc===k?' ✅':''}<div class="hint">${v.desc}</div></div></div>`).join('')}</div>
  <div class="card"><b>말하기 속도</b><div class="seg" style="margin-top:8px">${[[0.6,'🐢 아주 천천히'],[0.8,'🚶 천천히'],[1,'🏃 보통']].map(([r,l])=>`<button data-r="${r}" class="${st.rate==r?'sel':''}">${l}</button>`).join('')}</div></div>
  <div class="card"><b>상황극 한글 뜻 보기</b><div class="hint">익숙해지면 꺼서 영어만 듣고 도전해 보세요!</div><div class="seg" style="margin-top:8px"><button data-h="1" class="${st.hintKo?'sel':''}">보이기</button><button data-h="0" class="${!st.hintKo?'sel':''}">숨기기 (도전!)</button></div></div>
+ <div class="card"><b>내 이름</b><div class="hint">지금: ${esc(st.name||'(없음)')} · 기록 공유 ${MANIFEST&&MANIFEST.logUrl?'켜짐':'꺼짐'}</div><button class="btn sec" id="nmch">✏️ 이름 바꾸기</button></div>
  <div class="card"><b>앱 정보</b><div class="hint">버전 v${MANIFEST?esc(MANIFEST.version):'-'} · 업데이트 ${MANIFEST?esc(MANIFEST.updated):'-'} · 문장 ${ALL.length}개</div><button class="btn sec" id="vh">📢 업데이트 내역 보기</button></div>
  <div class="card"><b>처음부터 다시</b><div class="hint">모든 진도와 도장이 지워져요.</div><button class="btn sec" id="rs" style="color:var(--bad)">${resetArm?'정말 지울까요? 한 번 더 누르면 삭제':'🗑️ 기록 초기화'}</button></div>`;
- $('#bk').onclick=home;$('#vh').onclick=showHistory;
+ $('#bk').onclick=home;$('#vh').onclick=showHistory;$('#nmch').onclick=()=>askName(draw);
  app.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{st.npc=b.dataset.n;save();draw();npcSay(rnd(npc().hi))});
  app.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{st.rate=+b.dataset.r;save();draw();say('Hello! Nice to meet you.',{pitch:1})});
  app.querySelectorAll('[data-h]').forEach(b=>b.onclick=()=>{st.hintKo=b.dataset.h==='1';save();draw()});
@@ -492,7 +512,7 @@ async function init(){
   for(const f of MANIFEST.packs){try{const p=await (await fetch('packs/'+f+'?v='+MANIFEST.version)).json();mergePack(p)}catch(e){console.log('pack fail',f,e)}}
  }catch(e){console.log('manifest fail',e)}
  if(!CATS.length){app.innerHTML='<div class="card center" style="margin-top:40px"><div style="font-size:50px">📶</div><h2>문장을 불러오지 못했어요</h2><p>인터넷 연결을 확인하고<br>새로고침해 주세요.</p><button class="btn" onclick="location.reload()">🔄 다시 시도</button></div>';return}
- buildAll();home();showNotice(false)}
+ buildAll();home();logEvent('open');if(!st.name)askName(()=>showNotice(false));else showNotice(false)}
 init().catch(e=>{app.innerHTML='<div class="card">앗, 오류가 났어요: '+esc(e.message)+'<br>Safari나 크롬으로 열어 주세요.</div>'});
 </script>
 </body>

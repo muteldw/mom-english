@@ -20,6 +20,10 @@
 - 영어 문장은 전체 팩에서 중복 금지 (validate가 검사).
 - 문장은 5~10단어, 60대 여행자가 실제로 쓸 쉬운 표현. 발음은 한글로.
 
+## 사용 기록
+- 앱이 `manifest.json`의 `logUrl`(Google Apps Script 웹 앱)로 접속·학습 이벤트를 보냄. 수집 스크립트: `tools/log-collector.gs`.
+- **manifest 수정 시 `logUrl` 필드는 그대로 유지할 것.**
+
 ## 매주 업데이트 절차
 1. `packs/w{N}.json` 추가 (N = 마지막 팩 주차 + 1)
 2. `manifest.json`: `packs`에 추가, `version` 마이너 +1 (1.1.0 → 1.2.0), `updated`, `notice`(id=version) 교체, `history` 맨 앞에 항목 추가
